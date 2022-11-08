@@ -1,0 +1,27 @@
+nav {
+    height: 380px;
+    width: 100%;
+}
+
+.nav_frame {
+    height: 450px;
+    width: 100%;
+    margin-bottom: 380px;
+    background-image: url('/public/images/main.png');
+}
+
+
+/* Desktop */
+@media screen and (max-width: 1919px) {
+}
+
+/* Laptop */
+@media screen and (max-width: 1440px) {
+}
+
+@media screen and (max-width: 1056px) {
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+}
