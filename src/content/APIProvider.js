@@ -4,12 +4,13 @@ import React, { useState, useEffect, createContext } from 'react'
 
 export const APIContext = createContext()
 export const APIProvider = ({ children }) => {
-    const [service, setService] = useState(null)
-    const [status, setStatus] = useState(null)
+    const [service, setService]   = useState(null)
+    const [status, setStatus]     = useState(null)
     const [category, setCategory] = useState(null)
     const [snapshot, setSnapshot] = useState(null)
-    const [loading, setLoading] = useState(false) 
-    const [error, setError] = useState(null)
+    const [stack, setStack]       = useState(null)
+    const [loading, setLoading]   = useState(false) 
+    const [error, setError]       = useState(null)
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -36,6 +37,9 @@ export const APIProvider = ({ children }) => {
                 // set data
                 response = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
                 setService(response.data.result)
+
+                response = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
+                setStack(response.data.result)
             } catch (e) {
                 setError(e) 
             }
@@ -49,7 +53,7 @@ export const APIProvider = ({ children }) => {
     if (!category && !snapshot && !status && !service) return <div></div>
 
     return (
-        <APIContext.Provider value={[ service, category, snapshot, status ]}>
+        <APIContext.Provider value={[ service, category, snapshot, status, stack ]}>
             { children }
         </APIContext.Provider>
     )
