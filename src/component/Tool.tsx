@@ -18,8 +18,12 @@ function Tool() {
 	async function getData() {
 		try {
 			dispatch({ type: 'LOADING' })
-			const response = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/resource/cpu`)
-			dispatch({ type: 'SUCCESS', data: response.data })
+			const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
+			const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
+			const snapshot = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/snapshot`)
+			const status   = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/status`)
+			const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
+			dispatch({ type: 'SUCCESS', service: service.data, category: category.data, snapshot: snapshot.data, status: status.data, stack: stack.data })
 		} catch (e) {
 			dispatch({ type: 'ERROR', error: e })
 		}
@@ -31,18 +35,19 @@ function Tool() {
 
 
 	// 조회된 데이터 정의
-	const { loading, data, error } = state
+	const { loading, service, category, snapshot, status, stack, error } = state
+
 
 	if( loading ) return (<div>1</div>)
 	if( error ) return (<div>1</div>)
-	if( !data ) return (<div>1</div>)
+	if( !service && !category && !snapshot && !status && !stack ) return (<div>1</div>)
 
 	return (
 		<div>
 			<p>123</p>
-			{ data.result.map((item: { cpu: number }, index: number) => {
+			{ category?.result.map((item: any, index: number) => {
 				return (
-					<p key={index}>{item.cpu}</p>
+					<p key={index}>{item.name}</p>
 				)
 			}) }
 		</div>
