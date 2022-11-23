@@ -20,8 +20,8 @@ type State = {
 type Action =
     | { type: 'LOADING'; }
     | { type: 'SUCCESS'; service: Data; category: Data; snapshot: Data; status: Data; stack: Data; }
+    | { type: 'SEARCH'; service: Data; category: Data; snapshot: Data; status: Data; stack: Data; }
     | { type: 'ERROR'; error: any }
-    | { type: 'ERROR s' };
 
 // Action Dispatch를 Generics로 설정 
 type ActionDispatch = Dispatch<Action>;
@@ -54,6 +54,16 @@ function reducer(state: State, action: Action): State {
                 stack: action.stack,
                 error: null
             };
+        case 'SEARCH':
+            return {
+                loading: false,
+                service: action.service,
+                category: action.category,
+                snapshot: action.snapshot,
+                status: action.status,
+                stack: action.stack,
+                error: null
+            };
         case 'ERROR':
             return {
                 loading: false,
@@ -64,12 +74,9 @@ function reducer(state: State, action: Action): State {
                 stack: null,
                 error: action.error
             };
-        default:
-            throw new Error(`Unhandled action type: ${action.type}`);
     }
 }
 
-// 
 export function APIProvider({ children }: { children: React.ReactNode }) {
     const [state, dispatch] = useReducer(reducer, { 
         loading: false,                 

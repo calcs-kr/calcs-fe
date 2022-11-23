@@ -6,11 +6,14 @@ import { APIProvider } from './context/APIContext'
 
 // Component
 import Tool from './component/Tool'
+import { SearchProvider } from './context/SearchContext'
 
 function App() {
   return (
     <APIProvider>
-      <Tool />
+      <SearchProvider>
+        <Tool />
+      </SearchProvider>
     </APIProvider>
   )
 }
