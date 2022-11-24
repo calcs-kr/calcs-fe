@@ -128,6 +128,50 @@
 
 
 
+
+/* 스켈레톤 디자인 */
+.tool_ske_item__tool_img { width: 100%; visibility: hidden; }
+
+.tool_ske_item__tool,
+.tool_ske_item__tool_category,
+.tool_ske_item__tool_name,
+.tool_ske_item__tool_describe,
+.toot_ske_item__tool_data_btm {
+    background-color: #ededed;
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, .5) 50%,
+        rgba(255, 255, 255, 0) 60%
+    ) #ededed;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 1s loading ease-in-out infinite;
+}
+
+
+.tool_ske_item__tool_category { height: 1rem; width: 40%; margin-top: 14px; color: #2D3D5F; font-weight: bold; }
+.tool_ske_item__tool_name { height: 1.4rem; margin-top: 8px; font-size: 1.4rem; font-weight: bold; }
+.tool_ske_item__tool_describe { height: 10rem; width: 100%; margin-top: 10px; font-size: 1.2rem; font-weight: bold;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+.toot_ske_item__tool_data_btm { height: 1rem; width: 70%; }
+
+@keyframes loading {
+    to {
+        background-position-x: -20%;
+    }
+}
+
+
+
+
+
+
 /* Desktop */
 @media screen and (max-width: 1919px) {
     .tool_detail__tool { grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(1, minmax(140px, auto)); }

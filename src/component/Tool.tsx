@@ -11,6 +11,7 @@ import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContex
 
 // Style
 import styles from './Tool.module.css';
+import ToolSkeleton from './ToolSkeleton';
 
 
 
@@ -39,8 +40,15 @@ function Tool() {
 			const snapshot = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/snapshot`)
 			const status   = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/status`)
 			const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
-			setServiceList(service.data.result)
-			dispatch({ type: 'SUCCESS', service: service.data, category: category.data, snapshot: snapshot.data, status: status.data, stack: stack.data })
+
+            setTimeout( async function() {
+                try {
+        			dispatch({ type: 'SUCCESS', service: service.data, category: category.data, snapshot: snapshot.data, status: status.data, stack: stack.data })
+                    setServiceList(service.data.result)
+                } catch (err) {
+                    console.log(err)
+                }
+            }, 1 * 1000);
 		} catch (e) {
 			dispatch({ type: 'ERROR', error: e })
 		}
@@ -52,7 +60,15 @@ function Tool() {
 		try {
 			searchDispatch({ type: 'LOADING' })
 			const search  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?keyword=${keyword}&type=name`)
-			searchDispatch({ type: 'SEARCH', search: search.data })
+
+            setTimeout( async function() {
+                try {
+                    searchDispatch({ type: 'SEARCH', search: search.data })
+                    setServiceList(search.data.result)
+                } catch (err) {
+                    console.log(err)
+                }
+            }, 1 * 1000);
 		} catch (e) {
 			searchDispatch({ type: 'ERROR', searchError: e })
 		}
@@ -93,7 +109,7 @@ function Tool() {
 
 
 	////// 데이터 반환 //////
-	if( loading ) return (<div>1</div>)
+	if( loading || searchLoading ) return (<ToolSkeleton />)
 	if( error ) return (<div>1</div>)
 	if( !serviceList ) return (<div>1</div>)
 
@@ -102,11 +118,11 @@ function Tool() {
             {/* 검색 구역 */}
             <div className={ styles.tool_detail }>
                 <div className={ styles.tool_item__search }>
-                    <span className={ styles.tool_item__search_text }>{ search?.result.length } Items</span>
+                    <span className={ styles.tool_item__search_text }>{ serviceList?.length } Items</span>
                     <div className={ styles.tool_item__search_icon }>
                         <div className={ styles.tool_item__search_icon_frame }>
                             <input className={ styles.tool_item__search_icon_frame__input } onChange={onChange} onKeyPress={onSearch} value={keyword} placeholder='search' />
-                            <img className={ styles.tool_item__search_icon_frame__img } src='/images/search.png' alt='' onClick={onSearch} />
+                            <img className={ styles.tool_item__search_icon_frame__img } src='/images/search.png' alt='' />
                         </div>
                         <img className={ styles.tool_item__search_icon_frame__img } src='/images/sort.png' alt='' />
                     </div>
