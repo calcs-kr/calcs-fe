@@ -40,7 +40,7 @@
     overflow: hidden;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 }
-.tool_item__tool_img { width: 100%; border: 1px solid #D9DADB; border-radius: 8px 8px 0 0; }
+.tool_item__tool_img { width: 100%; border-bottom: 1px solid #D9DADB; border-radius: 8px 8px 0 0; box-sizing: border-box; }
 
 .tool_item__tool_category { margin-top: 10px; color: #2D3D5F; font-weight: bold; }
 .tool_item__tool_name { margin-top: 4px; font-size: 1.4rem; font-weight: bold; }
@@ -52,12 +52,11 @@
     -webkit-box-orient: vertical;
 }
 
-
 .toot_item__tool_data { height: calc( 100% - 170px ); display: flex; flex-direction: column; justify-content: space-between; margin: 0 12px; }
 .toot_item__tool_data_top { display: flex; flex-direction: column; }
-.toot_item__tool_data_btm {  }
 
 
+/* 모달 */
 .tool_item__modal { 
     position: fixed;
     top: 0;
@@ -74,7 +73,8 @@
     justify-content: center;
     align-items: center;
 }
-.tool_item__modal_act {     position: fixed;
+.tool_item__modal_act {
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -130,8 +130,15 @@
 
 
 /* 스켈레톤 디자인 */
-.tool_ske_item__tool_img { width: 100%; visibility: hidden; }
+.tool_ske_item__search_text { height: 1.8rem; width: 60px; margin-left: 10px; }
 
+.tool_ske_item__tool { width: 100%; }
+.tool_ske_item_tool_box { padding-top: 56.25%; }
+
+/* .tool_ske_item__tool_img { width: 100%; height: 40%; visibility: hidden; } */
+
+
+.tool_ske_item__search_text,
 .tool_ske_item__tool,
 .tool_ske_item__tool_category,
 .tool_ske_item__tool_name,
@@ -176,17 +183,20 @@
 @media screen and (max-width: 1919px) {
     .tool_detail__tool { grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(1, minmax(140px, auto)); }
     .toot_item__tool_data { height: calc( 100% - 170px ); }
+
 }
 
 /* Laptop */
 @media screen and (max-width: 1440px) {
     .tool_detail__tool { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(1, minmax(140px, auto)); }
     .toot_item__tool_data { height: calc( 100% - 150px ); }
+
 }
 
 @media screen and (max-width: 1056px) {
     .tool_detail__tool { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(1, minmax(140px, auto)); }
-    .toot_item__tool_data { height: calc( 100% - 180px ); }
+    .toot_item__tool_data { height: calc( 100% - 150px ); }
+
 }
 
 /* Mobile */
@@ -200,4 +210,5 @@
         grid-template-rows: repeat(5, minmax(140px, auto)); 
         margin-top: 30px;
     }
+
 }

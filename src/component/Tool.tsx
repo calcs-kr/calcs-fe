@@ -11,11 +11,14 @@ import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContex
 
 // Style
 import styles from './Tool.module.css';
-import ToolSkeleton from './ToolSkeleton';
+import { ToolSkeletonSearch, ToolSkeletonService } from './ToolSkeleton';
 
-
+import qs from 'query-string'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Tool() {
+    let navigate = useNavigate(); 
+
 	////// API 일괄 데이터 //////
 	const state = useAPIState();
 	const dispatch = useAPIDispatch();
@@ -29,6 +32,13 @@ function Tool() {
 	const { searchLoading, search, searchError } = searchState
 	const [serviceList, setServiceList] = useState([])  // 서비스 리스트
     const [keyword, setKeyword] = useState('')          // 검색 키워드
+
+
+    const [loaded, setLoaded] = useState(false);
+    function onLoad() {
+        console.log('loaded');
+        setLoaded(true);
+    }
 
 
 	// 데이터 조회 함수
@@ -54,10 +64,21 @@ function Tool() {
 		}
 	}
 
+
 	// 데이터 검색 함수
     const onSearch = async (element: any) => {
         if( element.type === 'keypress' && element?.charCode !== 13 ) return null
 		try {
+            //let a = qs.parse(window.location.search)
+            //const s = a.detail === 'w'
+
+            navigate('/', {
+                state: {
+                    keyword: keyword
+                }
+            });
+
+            
 			searchDispatch({ type: 'LOADING' })
 			const search  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?keyword=${keyword}&type=name`)
 
@@ -96,7 +117,6 @@ function Tool() {
     }
 
 
-	
 	useEffect(() => {
 		getBatchData()
 	}, [])
@@ -109,16 +129,17 @@ function Tool() {
 
 
 	////// 데이터 반환 //////
-	if( loading || searchLoading ) return (<ToolSkeleton />)
 	if( error ) return (<div>1</div>)
-	if( !serviceList ) return (<div>1</div>)
 
 	return (
 		<div className={ styles.tool_frame }>
             {/* 검색 구역 */}
             <div className={ styles.tool_detail }>
                 <div className={ styles.tool_item__search }>
-                    <span className={ styles.tool_item__search_text }>{ serviceList?.length } Items</span>
+                    {( ( loading || searchLoading ) || (!serviceList) )
+                    ? <ToolSkeletonSearch />
+                    : <span className={ styles.tool_item__search_text }>{ serviceList?.length } Items</span>
+                    }
                     <div className={ styles.tool_item__search_icon }>
                         <div className={ styles.tool_item__search_icon_frame }>
                             <input className={ styles.tool_item__search_icon_frame__input } onChange={onChange} onKeyPress={onSearch} value={keyword} placeholder='search' />
@@ -130,15 +151,16 @@ function Tool() {
             </div>
 
             {/* 아이템 구역 */}
+            { !loaded && <ToolSkeletonService /> }
             <div className={[ styles.tool_detail, styles.tool_detail__tool ].join(' ') }>
                 { serviceList.map((item: any, index: number) => {
                     return (
-                        <div className={ styles.tool_item__tool } key={ index } onClick={ () => { modalStatusChange(index) } }>
+                        <div className={ styles.tool_item__tool } key={ index } style={{ display: loaded? 'block': 'none' }} onClick={ () => { modalStatusChange(index) } }>
                             <div className={ !modalStatus[index] ? styles.tool_item__modal : styles.tool_item__modal_act }>
                                 <div className={ styles.tool_item__modal_context } onClick={(e) => e.stopPropagation()}>
                                     <img className={ styles.tool_item__modal_img } src='/img/service.png' alt='' />
-                                    <div className={ styles.tool_item__modal_text }>
 
+                                    <div className={ styles.tool_item__modal_text }>
                                         <p className={ styles.tool_item__modal_category }>{ item.category.name }</p>
                                         <p className={ styles.tool_item__modal_name }>{ item.name }</p>
                                         <p className={ styles.tool_item__modal_describe }>{ item.describe }</p>
@@ -178,7 +200,8 @@ function Tool() {
                             </div>
 
                         
-                            <img className={ styles.tool_item__tool_img } src='/img/service.png' alt='' />
+                            
+                            <img className={ styles.tool_item__tool_img } src='/img/service.png' onLoad={onLoad} alt='' />
 
                             <div className={ styles.toot_item__tool_data } onClick={ () => { modalStatusChange(index) } }>
                                 <div className={ styles.toot_item__tool_data_top }>
