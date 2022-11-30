@@ -18,7 +18,6 @@ export function ToolSkeletonService() {
                     <div className={ styles.tool_item__tool } key={ index }>
                         <div className={ styles.tool_ske_item__tool }>
                             <div className={ styles.tool_ske_item_tool_box }></div>
-                            {/* <img className={ styles.tool_ske_item__tool_img } src='/img/service.png' alt='' /> */}
                         </div>
 
                         <div className={ styles.toot_item__tool_data }>

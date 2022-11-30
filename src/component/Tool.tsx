@@ -13,7 +13,6 @@ import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContex
 import styles from './Tool.module.css';
 import { ToolSkeletonSearch, ToolSkeletonService } from './ToolSkeleton';
 
-import qs from 'query-string'
 import { Link, useNavigate } from 'react-router-dom'
 
 function Tool() {
@@ -69,16 +68,6 @@ function Tool() {
     const onSearch = async (element: any) => {
         if( element.type === 'keypress' && element?.charCode !== 13 ) return null
 		try {
-            //let a = qs.parse(window.location.search)
-            //const s = a.detail === 'w'
-
-            navigate('/', {
-                state: {
-                    keyword: keyword
-                }
-            });
-
-            
 			searchDispatch({ type: 'LOADING' })
 			const search  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?keyword=${keyword}&type=name`)
 
@@ -151,7 +140,7 @@ function Tool() {
             </div>
 
             {/* 아이템 구역 */}
-            { !loaded && <ToolSkeletonService /> }
+            { (( loading || searchLoading ) || (!serviceList) ) && <ToolSkeletonService /> }
             <div className={[ styles.tool_detail, styles.tool_detail__tool ].join(' ') }>
                 { serviceList.map((item: any, index: number) => {
                     return (
