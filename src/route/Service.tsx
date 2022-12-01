@@ -5,14 +5,14 @@ import axios from 'axios';
 import config from '../config'
 
 // React
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 // Context
-import { useAPIState, useAPIDispatch } from '../context/APIContext';
+import { useAPIDispatch } from '../context/APIContext';
 
 function Service() {
     ////// API 일괄 데이터 //////
-	const state = useAPIState();
+	// const state = useAPIState();
 	const dispatch = useAPIDispatch();
 
     // 데이터 조회 함수
@@ -39,7 +39,7 @@ function Service() {
 
     useEffect(() => {
         getBatchData()
-    }, [])
+    })
 
     return (
         <div>

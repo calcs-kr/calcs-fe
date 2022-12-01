@@ -11,16 +11,6 @@ import { SearchProvider } from './context/SearchContext'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// redux
-// 설정 파일
-import axios from 'axios';
-import config from './config'
-
-import { useAPIState, useAPIDispatch } from './context/APIContext';
-import { useEffect } from 'react';
-
-
-
 function App() {
   return (
     <Router>

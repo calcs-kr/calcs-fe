@@ -65,16 +65,13 @@ function Tool() {
 
 
 	////// 모달창 //////
-	const modalStatus: boolean[] = Array(serviceList?.length).fill(false)
+    const [modalStatus, setModalStatus] = useState(Array(serviceList?.length).fill(false))
 	async function modalStatusChange(index: number) {
         let items = [...modalStatus]
         let item  = items[index]
         item = !item
         items[index] = item
-		/*
-        await setModalStatus(new Array(modalStatus).fill(false))
         await setModalStatus(items)
-		*/
     }
 
     useEffect(() => {
@@ -83,13 +80,17 @@ function Tool() {
     }, [service])
 	
 	useEffect(() => {
-		if(keyword === '' ) { setServiceList(service ? service.result : []) }  // 검색 키워드가 없을 경우 
-		else { setServiceList(search ? search.result : []) }                   // 검색 키워드가 있을 경우
+		if(keyword === '' ) { setServiceList(service ? service?.result : []) }  // 검색 키워드가 없을 경우 
+		else { setServiceList(search ? search?.result : []) }                   // 검색 키워드가 있을 경우
 	}, [search])                                                               // onSearch 함수 실행마다 동작
 
 
 	////// 데이터 반환 //////
-	if( error ) return (<div>1</div>)
+	if( error ) return (
+        <div className={ styles.tool_frame }>
+            <span>서비스에 에러가 발생하였습니다.</span> 
+        </div>
+    )
 
 	return (
 		<div className={ styles.tool_frame }>
@@ -116,7 +117,7 @@ function Tool() {
             : <div className={[ styles.tool_detail, styles.tool_detail__tool ].join(' ') }>
                 { serviceList.map((item: any, index: number) => {
                     return (
-                        <div className={ styles.tool_item__tool } key={ index } style={{ display: loaded == serviceList.length ? 'block': 'none' }} onClick={ () => { modalStatusChange(index) } }>
+                        <div className={ styles.tool_item__tool } key={ index } style={{ display: loaded === serviceList.length ? 'block': 'none' }} onClick={ () => { modalStatusChange(index) } }>
                             <div className={ !modalStatus[index] ? styles.tool_item__modal : styles.tool_item__modal_act }>
                                 <div className={ styles.tool_item__modal_context } onClick={(e) => e.stopPropagation()}>
                                     <img className={ styles.tool_item__modal_img } src='/img/service.png' alt='' />
