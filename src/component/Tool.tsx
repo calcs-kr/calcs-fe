@@ -13,11 +13,7 @@ import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContex
 import styles from './Tool.module.css';
 import { ToolSkeletonSearch, ToolSkeletonService } from './ToolSkeleton';
 
-import { Link, useNavigate } from 'react-router-dom'
-
 function Tool() {
-    let navigate = useNavigate(); 
-
 	////// API 일괄 데이터 //////
 	const state = useAPIState();
 	const dispatch = useAPIDispatch();
@@ -33,42 +29,19 @@ function Tool() {
     const [keyword, setKeyword] = useState('')          // 검색 키워드
 
 
-    const [loaded, setLoaded] = useState(false);
+    // 이미지 로딩 대기
+    const [loaded, setLoaded] = useState(0);
     function onLoad() {
-        console.log('loaded');
-        setLoaded(true);
+        setLoaded(prevState => prevState + 1);
     }
-
-
-	// 데이터 조회 함수
-	const getBatchData = async () => {
-		try {
-			dispatch({ type: 'LOADING' })
-			const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
-			const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
-			const snapshot = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/snapshot`)
-			const status   = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/status`)
-			const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
-
-            setTimeout( async function() {
-                try {
-        			dispatch({ type: 'SUCCESS', service: service.data, category: category.data, snapshot: snapshot.data, status: status.data, stack: stack.data })
-                    setServiceList(service.data.result)
-                } catch (err) {
-                    console.log(err)
-                }
-            }, 1 * 1000);
-		} catch (e) {
-			dispatch({ type: 'ERROR', error: e })
-		}
-	}
-
 
 	// 데이터 검색 함수
     const onSearch = async (element: any) => {
         if( element.type === 'keypress' && element?.charCode !== 13 ) return null
+
 		try {
 			searchDispatch({ type: 'LOADING' })
+            setLoaded(0)
 			const search  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?keyword=${keyword}&type=name`)
 
             setTimeout( async function() {
@@ -78,7 +51,7 @@ function Tool() {
                 } catch (err) {
                     console.log(err)
                 }
-            }, 1 * 1000);
+            }, 0.5 * 1000);
 		} catch (e) {
 			searchDispatch({ type: 'ERROR', searchError: e })
 		}
@@ -89,7 +62,6 @@ function Tool() {
         const { value, name } = event.target
         setKeyword(value)
     }
-
 
 
 	////// 모달창 //////
@@ -105,16 +77,15 @@ function Tool() {
 		*/
     }
 
-
-	useEffect(() => {
-		getBatchData()
-	}, [])
+    useEffect(() => {
+        if(!service) return
+        setServiceList(service.result)
+    }, [service])
 	
 	useEffect(() => {
 		if(keyword === '' ) { setServiceList(service ? service.result : []) }  // 검색 키워드가 없을 경우 
 		else { setServiceList(search ? search.result : []) }                   // 검색 키워드가 있을 경우
-	}, [search])  // onSearch 함수 실행마다 동작
-
+	}, [search])                                                               // onSearch 함수 실행마다 동작
 
 
 	////// 데이터 반환 //////
@@ -140,11 +111,12 @@ function Tool() {
             </div>
 
             {/* 아이템 구역 */}
-            { (( loading || searchLoading ) || (!serviceList) ) && <ToolSkeletonService /> }
-            <div className={[ styles.tool_detail, styles.tool_detail__tool ].join(' ') }>
+            { (( loading || searchLoading ) || (!serviceList) )
+            ? <ToolSkeletonService />
+            : <div className={[ styles.tool_detail, styles.tool_detail__tool ].join(' ') }>
                 { serviceList.map((item: any, index: number) => {
                     return (
-                        <div className={ styles.tool_item__tool } key={ index } style={{ display: loaded? 'block': 'none' }} onClick={ () => { modalStatusChange(index) } }>
+                        <div className={ styles.tool_item__tool } key={ index } style={{ display: loaded == serviceList.length ? 'block': 'none' }} onClick={ () => { modalStatusChange(index) } }>
                             <div className={ !modalStatus[index] ? styles.tool_item__modal : styles.tool_item__modal_act }>
                                 <div className={ styles.tool_item__modal_context } onClick={(e) => e.stopPropagation()}>
                                     <img className={ styles.tool_item__modal_img } src='/img/service.png' alt='' />
@@ -207,6 +179,8 @@ function Tool() {
                     )
                 }) }
             </div>
+            }
+            
         </div>
 	)
 }
