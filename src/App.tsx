@@ -9,7 +9,7 @@ import Service from './route/Service';
 import { SearchProvider } from './context/SearchContext'
 
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (

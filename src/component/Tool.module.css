@@ -39,6 +39,7 @@
     background-color: #FFFFFF;
     overflow: hidden;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
 }
 .tool_item__tool_img { width: 100%; border-bottom: 1px solid #D9DADB; border-radius: 8px 8px 0 0; box-sizing: border-box; }
 
@@ -88,7 +89,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    cursor: auto;
 }
 
 .tool_item__modal_context {
@@ -142,6 +143,7 @@
 .tool_ske_item__tool_name,
 .tool_ske_item__tool_describe,
 .toot_ske_item__tool_data_btm {
+    border-radius: 4px;
     background-color: #ededed;
     background: linear-gradient(
         100deg,

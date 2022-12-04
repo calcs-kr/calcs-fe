@@ -1,19 +1,19 @@
-import Tool from "../component/Tool";
-
 // 설정 파일
-import axios from 'axios';
+import axios from 'axios'
 import config from '../config'
 
 // React
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 // Context
-import { useAPIDispatch } from '../context/APIContext';
+import { useAPIDispatch } from '../context/APIContext'
+import Header from '../component/Header'
+import Tool from '../component/Tool'
 
 function Service() {
     ////// API 일괄 데이터 //////
-	// const state = useAPIState();
-	const dispatch = useAPIDispatch();
+	// const state = useAPIState()
+	const dispatch = useAPIDispatch()
 
     // 데이터 조회 함수
     const getBatchData = async () => {
@@ -31,7 +31,7 @@ function Service() {
                 } catch (err) {
                     console.log(err)
                 }
-            }, 0.5 * 1000);
+            }, 0.5 * 1000)
         } catch (e) {
             dispatch({ type: 'ERROR', error: e })
         }
@@ -43,8 +43,9 @@ function Service() {
 
     return (
         <div>
+            <Header />
             <Tool />
         </div>
     )
 }
-export default Service;
+export default Service

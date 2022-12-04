@@ -1,13 +1,13 @@
 // 설정 파일
-import axios from 'axios';
+import axios from 'axios'
 import config from '../config'
 
 // React
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 // Context
-import { useAPIState, useAPIDispatch } from '../context/APIContext';
-import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContext';
+import { useAPIState, useAPIDispatch } from '../context/APIContext'
+import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContext'
 
 // Style
 import styles from './Tool.module.css';
