@@ -46,6 +46,68 @@ header {
 .header_item_chr_text { color: #FFFFFF; text-align: center; font-size: 1.8rem; padding-top: 4px; }
 
 
+
+.category_frame {
+    height: calc(100% - 450px);
+    background-color: #FFFFFF;
+}
+.category_item__title,
+.category_item__title_act {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.category_item__title_act .category_item__title_img { transform: rotate(90deg); }
+
+.category_item__title_text {
+    padding: 13px 0 13px 20px;
+    font-size: 1.6rem;
+}
+.category_item__title_img {
+    height: 40px;
+    display: inline;
+    justify-self: end;
+    transition: all ease 0.8s
+}
+
+.category_item__subtitle {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+}
+
+
+.category_item__frame {
+    min-height: 0px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: all ease 0.55s;
+    margin-left: 24px;
+    grid-column: 1/3;
+}
+
+.category_item__title_act .category_item__frame {
+    min-height: 10px;
+    max-height: 200px;
+}
+
+.category_item__subtitle_divider {
+    border-left: 1px solid #464A5E;
+    height: 1.5em;
+    display: inline-block;
+    margin-top: -20px;
+}
+
+.category_item__subtitle_divi {
+    width: 8px;
+    height: 1px;
+    display: inline-block;
+    background-color: #464A5E;
+    margin-left: -1px;
+    margin-right: 6px
+}
+
+
 /* 스켈레톤 디자인 */
 .header_ske_item__btm_value,
 .header_ske_item_chr_grph,

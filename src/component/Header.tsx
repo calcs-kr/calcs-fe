@@ -28,6 +28,15 @@ function Header() {
 	const { loading, service, category, snapshot, status, stack, error } = state
 	const { searchLoading, search, searchError } = searchState
 
+    const [menuStatus, setMenuStatus] = useState([])
+    async function changeMenuStatus(index: number) {
+        let items:any = [...menuStatus]
+        let item:any  = items[index]
+        item = !item
+        items[index] = item
+        setMenuStatus(items)
+    }
+
     return (
         <header>
             <div className={ styles.header_frame }>
@@ -80,7 +89,7 @@ function Header() {
                         ? <HeaderSkeletonStatus />
                         : <>
                             <div className={ styles.header_item_chr_grph }>
-                                <ChartPie percent={ status?.result.length * 100 / service?.result.length } />
+                                <ChartPie percent={ Math.round(status?.result.length * 100 / service?.result.length) } />
                             </div>
                             <div className={ styles.header_item_chr_text }>
                                 <p>Online</p>
@@ -94,7 +103,7 @@ function Header() {
                         ? <HeaderSkeletonStatus />
                         : <>
                             <div className={ styles.header_item_chr_grph }>
-                                <ChartPie percent={ status?.result.length * 100 / service?.result.length } />
+                                <ChartPie percent={ Math.round(status?.result.length * 100 / service?.result.length) } />
                             </div>
                             <div className={ styles.header_item_chr_text }>
                                 <p>Expected</p>
@@ -102,6 +111,29 @@ function Header() {
                         </>
                         }
                     </div>
+                </div>
+            </div>
+
+            <div className={ styles.category_frame }>
+                <div className={ styles.category_detail }>
+                    { category?.result.map(( categoryItem: any, index ) => (
+                        <div className={ !menuStatus[index] ? styles.category_item__title : styles.category_item__title_act } key={ categoryItem._id }>
+                            <span className={ styles.category_item__title_text }>{ categoryItem.name }</span>
+                            <img className={ styles.category_item__title_img } src='/icon/arrow_right.png' alt='' onClick={ () => changeMenuStatus(index) } />
+
+                            <div className={ styles.category_item__frame }>
+                                { service?.result.map(( serviceItem: any, index ) => {
+                                    if(serviceItem.category._id === categoryItem._id) {
+                                        return ( <div className={ styles.category_item__subtitle } key={ serviceItem._id }>
+                                            <span className={ styles.category_item__subtitle_divider }></span>
+                                            <div className={ styles.category_item__subtitle_divi }></div>
+                                            <span>{ serviceItem.category._id === categoryItem._id ? serviceItem.name : '' }</span>
+                                        </div> )
+                                    }
+                                } ) }
+                            </div>
+                        </div>
+                    ) ) }
                 </div>
             </div>
         </header>
