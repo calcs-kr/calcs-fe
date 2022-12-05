@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 // Context
 import { useAPIDispatch } from '../context/APIContext'
 import Header from '../component/Header'
+import Nav from '../component/Nav'
 import Tool from '../component/Tool'
 
 function Service() {
@@ -44,6 +45,7 @@ function Service() {
     return (
         <div>
             <Header />
+            <Nav />
             <Tool />
         </div>
     )

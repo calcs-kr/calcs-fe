@@ -1,9 +1,5 @@
-// 설정 파일
-import axios from 'axios'
-import config from '../config'
-
 // React
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 // Context
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
