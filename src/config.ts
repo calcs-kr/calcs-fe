@@ -1,0 +1,17 @@
+const config = ({
+    MONGO_DB_ROOT_USERNAME: process.env.MONGO_INITDB_ROOT_USERNAME,
+    MONGO_DB_ROOT_PASSWORD: process.env.MONGO_INITDB_ROOT_PASSWORD,
+    MONGO_DB_ROOT_DATABASE: process.env.MONGO_INITDB_DATABASE,
+
+    JWT_PASSWORD: process.env.REACT_APP_JWT_PASSWORD,
+    KEY_PASSWORD: process.env.REACT_APP_KEY_PASSWORD,
+
+    CALCS_FE: process.env.REACT_APP_CALCS_FE,
+    CALCS_BE: process.env.REACT_APP_CALCS_BE,
+    CALCS_DB: process.env.REACT_APP_CALCS_DB,
+
+    CALCS: process.env.REACT_APP_CALCS,
+    CALCS_HOST: process.env.REACT_APP_CALCS_HOST
+})
+
+export default config

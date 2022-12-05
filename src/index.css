@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/opensans/v34/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVI.woff2) format('woff2');
+    unicode-range: U+0020-007E;
+}
+
+* { font-family: 'Noto Sans KR', serif; margin: 0; padding: 0; }
+html {
+    font-size: 10px; 
+    background-color: #EDEEF1; 
+    font-family: "Roboto"; 
+    overflow-y: scroll;
+
+    --primary1: #2D4066;
+    --primary2: #203155;
+
+    --background2: #ededed;
+}
+
+::-webkit-scrollbar       { width: 10px; }
+::-webkit-scrollbar-track { background-color: transparent; }
+::-webkit-scrollbar-thumb { background-color: #d6dee1; border-radius: 10px; border: 3px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background-color: #a8bbbf; }
+
+
