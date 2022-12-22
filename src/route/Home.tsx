@@ -3,14 +3,13 @@ import { useAPIState, useAPIDispatch } from '../context/APIContext'
 
 // Context
 import Header from '../component/Header'
-import Nav from '../component/Nav'
-import Statistic from '../component/Statistic'
 import Loading from '../component/Loading';
+import MainSplash from '../component/MainSplash';
 
 
 
 
-function Dashboard() {
+function Home() {
     ////// API 일괄 데이터 //////
 	const state = useAPIState();
 	const dispatch = useAPIDispatch();
@@ -20,13 +19,12 @@ function Dashboard() {
 
     return (
         <>
-            <Loading loading={ !service } />
+            <Loading loading={ false } />
             <div>
                 <Header />
-                <Nav />
-                <Statistic />
+                <MainSplash />
             </div>
         </>
     )
 }
-export default Dashboard
+export default Home

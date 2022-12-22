@@ -5,12 +5,8 @@ import './App.css'
 import { APIProvider } from './context/APIContext'
 
 // Component
-import Service from './route/Service';
-import { SearchProvider } from './context/SearchContext'
-
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Dashboard from './route/Dashboard';
+import Home from './route/Home';
 
 
 // 설정 파일
@@ -58,8 +54,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/service' element={<Service />} />
-        <Route path='/' element={<Dashboard />} />
+        <Route path='/' element={<Home />} />
       </Routes>
     </Router>
   )

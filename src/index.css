@@ -25,7 +25,8 @@ html {
     --shadow1: rgba(0, 0, 0, 0.65) 0px 2px 8px;
     --shadow2: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 
-    --text: #000000;
+    --text1: #000000;
+    --size1: 12px;
 }
 
 ::-webkit-scrollbar { width: 0; }

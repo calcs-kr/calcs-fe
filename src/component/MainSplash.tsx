@@ -1,29 +1,29 @@
+// React
+import { useState } from 'react'
+
 // Context
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
 import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContext'
 
 // Style
-import styles from './Nav.module.css'
+import styles from './MainSplash.module.css';
+import { Link } from 'react-router-dom'
 
-function Nav() {
+function MainSplash() {
     ////// API 일괄 데이터 //////
 	const state = useAPIState();
 	const dispatch = useAPIDispatch();
 
-	////// API 검색 일괄 데이터 //////
-	const searchState = useAPISearchState();
-	const searchDispatch = useAPISearchDispatch();
-
 	// 조회된 데이터 정의
 	const { loading, service, category, snapshot, status, stack, error } = state
-	const { searchLoading, search, searchError } = searchState
-
 
     return (
-        <nav>
-            <div className={ styles.nav_frame }></div>
-        </nav>
+        <div className={ styles.mainsplash_frame }>
+            <div>
+                <span>STONE</span>
+            </div>
+        </div>
     )
 }
 
-export default Nav
+export default MainSplash
