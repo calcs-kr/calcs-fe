@@ -12,8 +12,6 @@ export function HeaderSkeletonSnapshot() {
 export function HeaderSkeletonStatus() {
 	return (
         <>
-            <div className={ styles.header_ske_item_chr_grph }></div>
-            <div className={ styles.header_ske_item_chr_text }></div>
         </>
 	)
 }
