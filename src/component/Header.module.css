@@ -1,25 +1,22 @@
 header { height: 50px; width: 1320px; margin: 0 calc((100% - 1320px) / 2); position: fixed; top: 0; }
+
 .header_frame { height: 100%; display: flex; align-items: center; justify-content: space-between; }
 .header_item  { display: flex; align-items: center; justify-content: center; }
 
-.header_item span { margin-left: 24px; color: var(--text1); font-size: var(--size1); }
+.header_item span { margin-left: 24px; font-size: var(--size1); color: var(--text1); }
 .header_item img { height: 26px; width: 20px; }
 
 /* Desktop */
 @media screen and (max-width: 1919px) {
-    header { }
 }
 
 /* Laptop */
 @media screen and (max-width: 1440px) {
-    header { width: 240px; }
 }
 
 @media screen and (max-width: 1056px) {
-    header { width: 240px; }
 }
 
 /* Mobile */
 @media screen and (max-width: 768px) {
-    header { display: none; }
 }
