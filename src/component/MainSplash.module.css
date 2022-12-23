@@ -3,5 +3,5 @@
 
 .mainsplash_item__title { font-size: 4.4rem; font-weight: bold; color: var(--text1); }
 .mainsplash_item__subhead { font-size: 1.8rem; color: var(--text1); margin: 0 0 40px; z-index: 1; }
-.mainsplash_item__subhead::before { content: ' '; height: 60px; width: 174px; display: inline-block; position: fixed; background-color: var(--secondary1); z-index: -1; }
-.mainsplash_item__text  { font-size: 1.8rem; color: var(--text1);  }
+.mainsplash_item__subhead::before { content: ' '; height: 60px; width: 174px; display: inline-block; position:absolute; background-color: var(--secondary1); z-index: -1; }
+.mainsplash_item__text  { font-size: 1.8rem; color: var(--text1); }

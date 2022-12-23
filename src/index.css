@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap');
 @font-face {
     font-family: 'Noto Sans KR';
     font-style: normal;
@@ -10,7 +10,7 @@
 * { font-family: 'Noto Sans KR', serif; margin: 0; padding: 0; }
 html {
     font-size: 10px; 
-    background-color: #EDEEF1; 
+    background-color: #FFFFFF; 
     font-family: "Roboto"; 
     overflow-y: scroll;
 

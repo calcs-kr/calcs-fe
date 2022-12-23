@@ -2,11 +2,12 @@
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
 
 // Context
-import Header from '../component/Header'
 import Loading from '../component/Loading';
+
+import Header from '../component/Header'
 import MainSplash from '../component/MainSplash';
 
-
+import StoneList from '../component/StoneList';
 
 
 function Home() {
@@ -23,6 +24,8 @@ function Home() {
             <div>
                 <Header />
                 <MainSplash />
+
+                <StoneList />
             </div>
         </>
     )
