@@ -1,0 +1,12 @@
+footer { height: 200px; width: 1320px; margin: 0 calc((100% - 1320px) / 2); }
+
+.footer_frame { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.footer_item  { display: flex; flex-direction: column; }
+
+.footer_item_logo div img { height: 32px; width: 26px; margin-right: 10px; }
+.footer_item_logo div { margin-bottom: 4px; }
+.footer_item__logo { display: flex; align-items: center; }
+
+
+.footer_item_terms { align-items: flex-end;  }
+.footer_item_terms span { margin: 8px 0; }

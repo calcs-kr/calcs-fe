@@ -10,6 +10,7 @@ import MainSplash from '../component/MainSplash';
 import StoneList from '../component/StoneList';
 import MountainList from '../component/MountainList';
 import StoneForKeyWord from '../component/StoneForKeyword';
+import Footer from '../component/Footer';
 
 
 function Home() {
@@ -30,6 +31,8 @@ function Home() {
                 <StoneList />
                 <MountainList />
                 <StoneForKeyWord />
+
+                <Footer />
             </div>
         </>
     )
