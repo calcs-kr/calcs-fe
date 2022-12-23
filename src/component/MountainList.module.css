@@ -1,0 +1,13 @@
+.mountainlist_frame { height: 600px; width: 1320px; padding: 160px calc((100% - 1320px) / 2); background-color: var(--background2); }
+.mountainlist_item  { margin-bottom: 40px; display: flex; align-items: center; justify-content: space-between; }
+
+.mountainlist_item_title    { display: flex; flex-direction: column; }
+.mountainlist_item__title   { font-size: 2.6rem; font-weight: 100; }
+.mountainlist_item__subhead { font-size: 1rem; font-weight: 100;  }
+
+.mountainlist_item_arrow img { width: 100%; }
+
+
+/* 산 */
+.mountainlist_item_mountain { display: flex; justify-content: space-between; }
+.mountainlist_item__mountain img { height: 400px; width: 400px; }

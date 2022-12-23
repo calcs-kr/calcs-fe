@@ -8,6 +8,7 @@ import Header from '../component/Header'
 import MainSplash from '../component/MainSplash';
 
 import StoneList from '../component/StoneList';
+import MountainList from '../component/MountainList';
 
 
 function Home() {
@@ -26,6 +27,7 @@ function Home() {
                 <MainSplash />
 
                 <StoneList />
+                <MountainList />
             </div>
         </>
     )
