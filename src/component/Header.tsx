@@ -1,5 +1,6 @@
 // React
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 // Context
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
@@ -7,7 +8,6 @@ import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContex
 
 // Style
 import styles from './Header.module.css';
-import { Link } from 'react-router-dom'
 
 function Header() {
     ////// API 일괄 데이터 //////
@@ -22,13 +22,13 @@ function Header() {
             <div className={ styles.header_frame }>
                 <div className={ styles.header_item }>
                     <img src='/img/logo.png' alt='' />
-                    <span>CALCS</span>
+                    <span className={ styles.header_item__text }>CALCS</span>
                 </div>
 
                 <div className={ styles.header_item }>
-                    <span>홈</span>
-                    <span>스톤</span>
-                    <span>블로그</span>
+                    <Link to='/' className={ styles.header_item__text }>홈</Link>
+                    <Link to='/stone' className={ styles.header_item__text }>스톤</Link>
+                    <a href='https://reasley.com' className={ styles.header_item__text }>블로그</a>
                 </div>
             </div>
         </header>

@@ -3,8 +3,8 @@ header { height: 50px; width: 1320px; margin: 0 calc((100% - 1320px) / 2); posit
 .header_frame { height: 100%; display: flex; align-items: center; justify-content: space-between; }
 .header_item  { display: flex; align-items: center; justify-content: center; }
 
-.header_item span { margin-left: 24px; font-size: var(--size1); color: var(--text1); }
 .header_item img { height: 26px; width: 20px; }
+.header_item__text { margin-left: 24px; font-size: var(--size1); color: var(--text1); text-decoration: none; }
 
 /* Desktop */
 @media screen and (max-width: 1919px) {
