@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 // Context
@@ -17,11 +17,17 @@ function Header() {
 	// 조회된 데이터 정의
 	const { loading, service, category, snapshot, status, stack, error } = state
 
+
+    // 스크롤에 따른 css 변경
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const updateScroll = () => setScrollPosition(window.scrollY || document.documentElement.scrollTop)
+    useEffect(() => window.addEventListener('scroll', updateScroll) )
+
     return (
-        <header>
-            <div className={ styles.header_frame }>
+        <header className={ scrollPosition < 100 ? styles.header_original : styles.header_change  }>
+            <div className={[ styles.header_frame ].join(' ')}>
                 <div className={ styles.header_item }>
-                    <img src='/img/logo.png' alt='' />
+                    <div className={ styles.header_item__img }></div>
                     <span className={ styles.header_item__text }>CALCS</span>
                 </div>
 
