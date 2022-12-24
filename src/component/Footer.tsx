@@ -20,7 +20,7 @@ function Footer() {
             <div className={ styles.footer_frame }>
                 <div className={[ styles.footer_item, styles.footer_item_logo ].join(' ')}>
                     <div className={ styles.footer_item__logo }>
-                        <img src='/img/logo.svg' alt='' />
+                        <div className={ styles.footer_item__img }></div>
                         <span>CALCS</span>
                     </div>
 
