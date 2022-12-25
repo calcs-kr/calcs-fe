@@ -1,0 +1,20 @@
+footer { height: 200px; width: 1320px; margin: 0 calc((100% - 1320px) / 2); }
+
+.footer_frame { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+.footer_item  { display: flex; flex-direction: column; }
+
+.footer_item_logo div { margin-bottom: 4px; }
+.footer_item__logo { display: flex; align-items: center; }
+
+.footer_item__img { 
+    height: 26px;
+    width: 20px;
+    margin-right: 10px;
+    background-color: var(--text2);
+    --webkit-mask: url('/public/img/logo.svg') no-repeat center;
+    mask: url('/public/img/logo.svg') no-repeat center;
+    mask-size: cover;
+}
+
+.footer_item_terms { align-items: flex-end;  }
+.footer_item_terms span { margin: 8px 0; }

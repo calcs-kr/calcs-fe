@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400;700&display=swap');
 @font-face {
     font-family: 'Noto Sans KR';
     font-style: normal;
@@ -10,19 +10,30 @@
 * { font-family: 'Noto Sans KR', serif; margin: 0; padding: 0; }
 html {
     font-size: 10px; 
-    background-color: #EDEEF1; 
+    background-color: #FFFFFF; 
     font-family: "Roboto"; 
     overflow-y: scroll;
 
     --primary1: #2D4066;
-    --primary2: #203155;
+    --primary2: #2D3D5F;
+    --primary3: #203155;
+    --primary-opacity: #2D4066be;
 
-    --background2: #ededed;
+    --secondary1: #8A9CC4;
+
+    --background1: #FFFFFF;
+    --background2: #F8F8FA;
+    --background3: #000000;
+
+    --shadow1: rgba(0, 0, 0, 0.65) 0px 2px 8px;
+    --shadow2: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+
+    --text1: #FFFFFF;
+    --text2: #000000;
+
+    --size1: 12px;
 }
 
-::-webkit-scrollbar       { width: 10px; }
-::-webkit-scrollbar-track { background-color: transparent; }
-::-webkit-scrollbar-thumb { background-color: #d6dee1; border-radius: 10px; border: 3px solid transparent; background-clip: content-box; }
-::-webkit-scrollbar-thumb:hover { background-color: #a8bbbf; }
+::-webkit-scrollbar { width: 0; }
 
 

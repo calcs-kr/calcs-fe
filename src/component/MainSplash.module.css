@@ -1,0 +1,7 @@
+.mainsplash_frame { height: 860px; width: 100%; background-image: url('/public/img/main.png'); background-position: center center; background-repeat: no-repeat; }
+.mainsplash_item  { height: 480px; width: 1040px; padding: 190px calc((100% - 1040px) / 2); display: flex; flex-direction: column; justify-content: center; }
+
+.mainsplash_item__title { font-size: 4.4rem; font-weight: bold; color: var(--text1); }
+.mainsplash_item__subhead { font-size: 1.8rem; color: var(--text1); margin: 0 0 40px; z-index: 1; }
+.mainsplash_item__subhead::before { content: ' '; height: 60px; width: 174px; display: inline-block; position:absolute; background-color: var(--secondary1); z-index: -1; }
+.mainsplash_item__text  { font-size: 1.8rem; color: var(--text1); }

@@ -1,0 +1,15 @@
+.stonelist_frame { height: 500px; width: 1320px; margin: 80px calc((100% - 1320px) / 2); }
+.stonelist_item { margin: 80px 0; font-weight: 100; text-align: center; }
+
+.stonelist_item_title   { display: flex; flex-direction: column; }
+.stonelist_item_stone { display: flex; justify-content: space-between; }
+
+.stonelist_item__stone { height: 310px; width: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; }
+
+
+.stonelist_item__title   { font-size: 2.6rem; font-weight: 100; }
+.stonelist_item__subhead { font-size: 1rem; font-weight: 100; }
+
+.stonelist_item__stone_img { height: 190px; width: 150px; }
+.stonelist_item__stone_name { margin-top: 20px; }
+.stonelist_item__stone_date {  }
