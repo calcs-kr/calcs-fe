@@ -51,7 +51,7 @@ function App() {
 
   useEffect(() => {
       getBatchData()
-  })
+  }, [])
 
 
   const heightState    = useHeaderState()
@@ -63,8 +63,7 @@ function App() {
 
   return (
     <Router>
-        <ScrollToTop />
-
+      <ScrollToTop />
       <Routes>
         <Route path='/stone' element={<Stone />} />
         <Route path='/' element={<Home />} />
