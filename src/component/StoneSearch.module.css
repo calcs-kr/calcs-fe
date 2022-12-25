@@ -1,9 +1,9 @@
-.stonekey_frame { width: 1320px; margin: 80px calc((100% - 1320px) / 2); display: grid; column-gap: 40px; grid-template-columns: 20% 80%; }
+.stonekey_frame { width: 1320px; margin: 80px calc((100% - 1320px) / 2); display: grid; column-gap: 60px; grid-template-columns: 16% 80%; }
 .stonekey_item:nth-child(1) { grid-column-start: 1; grid-column-end: 3; }
 .stonekey_item:nth-child(4) { grid-column-start: 1; grid-column-end: 3; }
 
 
-.stonekey_item_head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EEEEEE; margin-bottom: 4px; }
+.stonekey_item_head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
 .stonekey_item_head span { font-size: 4rem; font-weight: 100; }
 .stonekey_item__search {
     height: 28px;
@@ -21,12 +21,12 @@
 
 
 /* 카테고리 리스트 */
-.stonekey_item_category { margin-right: 12px; display: flex; flex-direction: column; }
-.stonekey_item_category div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #EEEEEE; }
+.stonekey_item_category { padding: 0 10px; display: flex; flex-direction: column; border: 1px solid #EEEEEE; border-top: 1px solid #494949; }
+.stonekey_item_category div { display: flex; justify-content: space-between; padding: 10px 0; }
 
 
 /* 스톤 리스트 */
-.stonekey_item_body { display: grid; grid-template-columns: repeat(4, 1fr); gap: 80px; }
+.stonekey_item_body { padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 80px; border: 1px solid #EEEEEE; border-top: 1px solid #494949;  }
 
 .stonekey_item__stone { height: 300px; padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
 
@@ -40,7 +40,7 @@
 .stonekey_item__stone div span { width: 100%; }
 
 
-.stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 3;  -webkit-box-orient: vertical; }
+.stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
 
 
 /* 페이지네이션 */
