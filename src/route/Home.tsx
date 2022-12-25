@@ -25,7 +25,7 @@ function Home() {
         <>
             <Loading loading={ false } />
             <div>
-                <Header scrollMotion={ true } />
+                <Header defaultColor={ 'white' } />
                 <MainSplash />
 
                 <StoneList />

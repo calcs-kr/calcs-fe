@@ -22,8 +22,7 @@ function Stone() {
         <>
             <Loading loading={ false } />
             <div>
-                <Header scrollMotion={ false } />
-
+                <Header />
                 
                 <StoneSearch />
                 

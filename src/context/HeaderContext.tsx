@@ -28,9 +28,7 @@ function reducer(state: State, action: Action): State {
 }
 
 export function HeaderProvider({ children }: { children: React.ReactNode }) {
-    const [state, dispatch] = useReducer(reducer, { 
-        scrollPosition: 0,
-    })
+    const [state, dispatch] = useReducer(reducer, { scrollPosition: 0 })
 
     return (
         <StateContext.Provider value={state}>

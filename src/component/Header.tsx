@@ -10,7 +10,7 @@ import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContex
 // Style
 import styles from './Header.module.css';
 
-function Header(props : { scrollMotion?: boolean }) {
+function Header(props : { defaultColor?: string }) {
     ////// API 일괄 데이터 //////
 	const state    = useAPIState()
 	const dispatch = useAPIDispatch()
@@ -23,18 +23,12 @@ function Header(props : { scrollMotion?: boolean }) {
 
     const { scrollPosition } = heightState
 
-
-    // 스크롤에 따른 css 변경
-    //const [scrollPosition, setScrollPosition] = useState(0);
-    //const updateScroll = () => setScrollPosition(window.scrollY || document.documentElement.scrollTop)
-    //useEffect(() => window.addEventListener('scroll', updateScroll) )
-
     return (
-        <header className={ scrollPosition < ( props?.scrollMotion ? 100 : 0 ) ? styles.header_original : styles.header_change }>
+        <header className={ scrollPosition < 50 ? ( props?.defaultColor === 'white' ? styles.white : styles.black ) : styles.header_scroll }>
             <div className={[ styles.header_frame ].join(' ')}>
                 <div className={ styles.header_item }>
                     <div className={ styles.header_item__img }></div>
-                    <span className={ styles.header_item__text }>CALCS</span>
+                    <Link to='/' className={ styles.header_item__text }>CALCS</Link>
                 </div>
 
                 <div className={ styles.header_item }>
