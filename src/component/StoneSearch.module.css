@@ -1,0 +1,42 @@
+.stonekey_frame { width: 1320px; margin: 80px calc((100% - 1320px) / 2); display: grid; column-gap: 40px; grid-template-columns: 20% 80%; }
+.stonekey_item:nth-child(1) { grid-column-start: 1; grid-column-end: 3; }
+
+.stonekey_item_head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EEEEEE; margin-bottom: 4px; }
+.stonekey_item_head span { font-size: 4rem; font-weight: 100; }
+.stonekey_item__search {
+    height: 28px;
+    width: 200px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #D9DADB;
+    border-radius: 4px;
+}
+
+.stonekey_item__search img { height: 30px; }
+.stonekey_item__search input { height: 80%; width: 80%; padding-left: 12px; border: none; }
+.stonekey_item__search input:focus { outline: none; }
+
+
+/* 카테고리 리스트 */
+.stonekey_item_category { margin-right: 12px; display: flex; flex-direction: column; }
+.stonekey_item_category div { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #EEEEEE; }
+
+
+/* 스톤 리스트 */
+.stonekey_item_body { display: grid; grid-template-columns: repeat(4, 1fr); gap: 80px; }
+
+.stonekey_item__stone { height: 300px; padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
+
+
+.stonekey_item__stone div:nth-child(1) {  }
+.stonekey_item__stone div:nth-child(2) { width: 100%; }
+
+
+
+.stonekey_item__stone div { display: flex; flex-direction: column; }
+.stonekey_item__stone div img { height: 140px; margin: 10px 0; object-fit: contain; }
+.stonekey_item__stone div span { width: 100%; }
+
+
+.stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 3;  -webkit-box-orient: vertical; }
