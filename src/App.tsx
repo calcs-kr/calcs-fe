@@ -7,7 +7,7 @@ import { APIProvider } from './context/APIContext'
 // Component
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './route/Home';
-
+import Stone from './route/Stone';
 
 // 설정 파일
 import axios from 'axios'
@@ -18,6 +18,7 @@ import { useEffect } from 'react'
 
 // Context
 import { useAPIState, useAPIDispatch } from './context/APIContext'
+import { useHeaderDispatch, useHeaderState } from './context/HeaderContext';
 
 
 function App() {
@@ -51,9 +52,18 @@ function App() {
       getBatchData()
   })
 
+
+  const heightState    = useHeaderState()
+	const heightDispatch = useHeaderDispatch()
+  useEffect(() => window.addEventListener('scroll', updateScroll) )
+  
+  const updateScroll = () => heightDispatch({ type: 'UPDATE', scrollPosition: window.scrollY || document.documentElement.scrollTop })
+
+
   return (
     <Router>
       <Routes>
+        <Route path='/stone' element={<Stone />} />
         <Route path='/' element={<Home />} />
       </Routes>
     </Router>
