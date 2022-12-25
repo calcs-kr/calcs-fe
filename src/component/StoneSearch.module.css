@@ -1,5 +1,7 @@
 .stonekey_frame { width: 1320px; margin: 80px calc((100% - 1320px) / 2); display: grid; column-gap: 40px; grid-template-columns: 20% 80%; }
 .stonekey_item:nth-child(1) { grid-column-start: 1; grid-column-end: 3; }
+.stonekey_item:nth-child(4) { grid-column-start: 1; grid-column-end: 3; }
+
 
 .stonekey_item_head { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EEEEEE; margin-bottom: 4px; }
 .stonekey_item_head span { font-size: 4rem; font-weight: 100; }
@@ -33,10 +35,34 @@
 .stonekey_item__stone div:nth-child(2) { width: 100%; }
 
 
-
 .stonekey_item__stone div { display: flex; flex-direction: column; }
 .stonekey_item__stone div img { height: 140px; margin: 10px 0; object-fit: contain; }
 .stonekey_item__stone div span { width: 100%; }
 
 
 .stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 3;  -webkit-box-orient: vertical; }
+
+
+/* 페이지네이션 */
+.stonekey_item_pagenation { margin: 40px 20%; display: flex; justify-content: center; gap: 4px; }
+.stonekey_item_pagenation span { height: 24px; width: 24px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid #EEEEEE; border-radius: 4px; cursor: pointer; }
+.stonekey_item__img  { height: 24px; width: 24px; display: flex; align-items: center; justify-content: center; border: 1px solid #EEEEEE; border-radius: 4px; cursor: pointer; }
+
+.stonekey_item_pagenation span:hover { background-color: #DDDDDD; }
+.stonekey_item__img:hover { background-color: #DDDDDD; }
+
+
+.icon_left  {
+    height: 14px; width: 7px;
+    background-color: var(--text2);
+    --webkit-mask: url('/public/icon/angle-left.svg') no-repeat center;
+    mask: url('/public/icon/angle-left.svg') no-repeat center;
+    mask-size: cover; 
+}
+.icon_right {
+    height: 14px; width: 7px;
+    background-color: var(--text2);
+    --webkit-mask: url('/public/icon/angle-right.svg') no-repeat center;
+    mask: url('/public/icon/angle-right.svg') no-repeat center;
+    mask-size: cover;
+}

@@ -28,8 +28,8 @@ function StoneSearch() {
             </div>
 
             <div className={[ styles.stonekey_item, styles.stonekey_item_category ].join(' ')}>
-                { a.map(() => (
-                    <div>
+                { a.map((item) => (
+                    <div key={ item }>
                         <span>Calc</span>
                         <span>1</span>
                     </div>
@@ -37,8 +37,8 @@ function StoneSearch() {
             </div>
 
             <div className={[ styles.stonekey_item, styles.stonekey_item_body ].join(' ')}>
-                { a.map(() => (
-                    <div className={ styles.stonekey_item__stone }>
+                { a.map((item) => (
+                    <div className={ styles.stonekey_item__stone } key={ item }>
                         <div>
                             <img src='/img/stone.png' alt='' />
 
@@ -52,6 +52,18 @@ function StoneSearch() {
                         </div>
                     </div>
                 )) }
+            </div>
+
+            <div className={[ styles.stonekey_item, styles.stonekey_item_pagenation ].join(' ')}>
+                <div className={ styles.stonekey_item__img }>
+                    <div className={[ styles.icon_left ].join(' ')}></div>
+                </div>
+                { a.map((item) => (
+                    <span key={item}>{item}</span>
+                )) }
+                <div className={ styles.stonekey_item__img }>
+                    <div className={[ styles.icon_right ].join(' ')}></div>
+                </div>
             </div>
         </div>
     )
