@@ -10,8 +10,6 @@ type State = {
     loading: boolean,
     service: Data | null,
     category: Data | null,
-    snapshot: Data | null,
-    status: Data | null,
     stack: Data | null,
     error: object | null | boolean
 };
@@ -19,8 +17,8 @@ type State = {
 // API 동작 타입 정의
 type Action =
     | { type: 'LOADING'; }
-    | { type: 'SUCCESS'; service: Data; category: Data; snapshot: Data; status: Data; stack: Data; }
-    | { type: 'SEARCH'; service: Data; category: Data; snapshot: Data; status: Data; stack: Data; }
+    | { type: 'SUCCESS'; service: Data; category: Data; stack: Data; }
+    | { type: 'SEARCH'; service: Data; category: Data; stack: Data; }
     | { type: 'ERROR'; error: any }
 
 // Action Dispatch를 Generics로 설정 
@@ -39,8 +37,6 @@ function reducer(state: State, action: Action): State {
                 loading: true,
                 service: null,
                 category: null,
-                snapshot: null,
-                status: null,
                 stack: null,
                 error: null
             };
@@ -49,8 +45,6 @@ function reducer(state: State, action: Action): State {
                 loading: false,
                 service: action.service,
                 category: action.category,
-                snapshot: action.snapshot,
-                status: action.status,
                 stack: action.stack,
                 error: null
             };
@@ -59,8 +53,6 @@ function reducer(state: State, action: Action): State {
                 loading: false,
                 service: action.service,
                 category: action.category,
-                snapshot: action.snapshot,
-                status: action.status,
                 stack: action.stack,
                 error: null
             };
@@ -69,8 +61,6 @@ function reducer(state: State, action: Action): State {
                 loading: false,
                 service: null,
                 category: null,
-                snapshot: null,
-                status: null,
                 stack: null,
                 error: action.error
             };
@@ -82,8 +72,6 @@ export function APIProvider({ children }: { children: React.ReactNode }) {
         loading: false,                 
         service: null,
         category: null,
-        snapshot: null,
-        status: null,
         stack: null,
         error: false 
     })

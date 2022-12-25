@@ -13,7 +13,7 @@ function StoneSearch() {
 	const dispatch = useAPIDispatch();
 
 	// 조회된 데이터 정의
-	const { loading, service, category, snapshot, status, stack, error } = state
+	const { loading, service, category, stack, error } = state
 
     const a = [1,2,3,4,5,6,7,8,9,10,11,12]
 

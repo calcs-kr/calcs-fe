@@ -33,13 +33,11 @@ function App() {
           dispatch({ type: 'LOADING' })
           const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
           const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
-          const snapshot = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/snapshot`)
-          const status   = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/status`)
           const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
 
           setTimeout( async function() {
               try {
-                  dispatch({ type: 'SUCCESS', service: service.data, category: category.data, snapshot: snapshot.data, status: status.data, stack: stack.data })
+                  dispatch({ type: 'SUCCESS', service: service.data, category: category.data, stack: stack.data })
               } catch (err) {
                   console.log(err)
               }
@@ -50,7 +48,7 @@ function App() {
   }
 
   useEffect(() => {
-      getBatchData()
+    getBatchData()
   }, [])
 
 
@@ -59,7 +57,6 @@ function App() {
   useEffect(() => window.addEventListener('scroll', updateScroll) )
   
   const updateScroll = () => heightDispatch({ type: 'UPDATE', scrollPosition: window.scrollY || document.documentElement.scrollTop })
-
 
   return (
     <Router>

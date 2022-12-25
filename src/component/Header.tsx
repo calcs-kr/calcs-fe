@@ -16,7 +16,7 @@ function Header(props : { defaultColor?: string }) {
 	const dispatch = useAPIDispatch()
 
 	// 조회된 데이터 정의
-	const { loading, service, category, snapshot, status, stack, error } = state
+	const { loading, service, category, stack, error } = state
 
     const heightState    = useHeaderState()
 	const heightDispatch = useHeaderDispatch()
