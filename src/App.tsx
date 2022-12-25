@@ -19,6 +19,7 @@ import { useEffect } from 'react'
 // Context
 import { useAPIState, useAPIDispatch } from './context/APIContext'
 import { useHeaderDispatch, useHeaderState } from './context/HeaderContext';
+import ScrollToTop from './context/ScrollTop';
 
 
 function App() {
@@ -62,6 +63,8 @@ function App() {
 
   return (
     <Router>
+        <ScrollToTop />
+
       <Routes>
         <Route path='/stone' element={<Stone />} />
         <Route path='/' element={<Home />} />
