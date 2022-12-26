@@ -29,22 +29,22 @@ function App() {
 
   // 데이터 조회 함수
   const getBatchData = async () => {
-      try {
-          dispatch({ type: 'LOADING' })
-          const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
-          const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
-          const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
+    try {
+      dispatch({ type: 'LOADING' })
+      const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
+      const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
+      const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
 
-          setTimeout( async function() {
-              try {
-                  dispatch({ type: 'SUCCESS', service: service.data, category: category.data, stack: stack.data })
-              } catch (err) {
-                  console.log(err)
-              }
-          }, 1 * 1000)
-      } catch (e) {
-          dispatch({ type: 'ERROR', error: e })
-      }
+      setTimeout( async function() {
+        try {
+          dispatch({ type: 'SUCCESS', service: service.data, category: category.data, stack: stack.data })
+        } catch (err) {
+          console.log(err)
+        }
+      }, 1 * 1000)
+    } catch (e) {
+      dispatch({ type: 'ERROR', error: e })
+    }
   }
 
   useEffect(() => {

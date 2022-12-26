@@ -1,5 +1,5 @@
 // React
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Context
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
@@ -15,47 +15,64 @@ function StoneForKeyWord() {
 	// 조회된 데이터 정의
 	const { loading, service, category, stack, error } = state
 
-    const a = [1,2,3,4,5,6,7,8]
+    const [tagItems, setTagItems] = useState(service?.result)
+
+    useEffect(() => {
+        setTagItems(service?.result)
+    }, [service])
+
+    enum Tag { 'all', 'stone', 'mountain', 'sketch' }
+    const [tag, setTag] = useState('all')
+    function selectTag(str: string) { setTag(str) }
+    useEffect(() => {
+        if( tag === 'all' ) {             // 전체
+            setTagItems(service?.result)
+            return
+        }
+
+        const temp: [] = []
+        service?.result.map((item) => {   // 특정 태그
+            if(item['tag'] !== tag) return
+            temp.push(item)
+        })
+        setTagItems(temp)
+    }, [tag])
+
 
     return (
         <div className={ styles.stonekey_frame }>
             <div className={[ styles.stonekey_item, styles.stonekey_item_title ].join(' ')}>
-                <span className={ styles.stonekey_item__title }>키워드 별 스톤</span>
+                <span className={ styles.stonekey_item__title }>태그별 추천 항목</span>
+                <span className={ styles.stonekey_item__subhead }>각 태그에서 인기가 많거나 추천된 항목입니다.</span>
             </div>
 
             <div className={[ styles.stonekey_item, styles.stonekey_item_tag ].join(' ')}>
                 <div>
-                    <span>All</span>
-                    <span>Adobe XD</span>
-                    <span>React</span>
-                    <span>Javascript</span>
-                    <span>Typescript</span>
-                </div>
-                
-                <div>
-                    <span>Node.js</span>
-                    <span>Docker</span>
-                    <span>Express</span>
-                    <span>Nginx</span>
+                    <span className={[ styles.stonekey_item__tag, tag === 'all' ? styles.active : '' ].join(' ')} onClick={() => selectTag('all')}>전체</span>
+                    <span className={[ styles.stonekey_item__tag, tag === 'stone' ? styles.active : '' ].join(' ')} onClick={() => selectTag('stone')}>스톤</span>
+                    <span className={[ styles.stonekey_item__tag, tag === 'mountain' ? styles.active : '' ].join(' ')} onClick={() => selectTag('mountain')}>마운틴</span>
+                    <span className={[ styles.stonekey_item__tag, tag === 'sketch' ? styles.active : '' ].join(' ')} onClick={() => selectTag('sketch')}>스케치</span>
                 </div>
             </div>
 
             <div className={[ styles.stonekey_item, styles.stonekey_item_stone ].join(' ')}>
-                { a.map(() => (
-                    <div className={ styles.stonekey_item__stone }>
+                { tagItems?.map((item: any, num: number) => {
+                    if (num >= 4) return
+                    if( !service?.result.length ) { return ( <span>없습니다.</span> ) }
+                    return ( <div className={ styles.stonekey_item__stone } key={ item._id }>
                         <div>
                             <img src='/img/stone.png' alt='' />
 
-                            <span className={ styles.stonelist_item__stone_category }>CALC</span>
-                            <span className={ styles.stonelist_item__stone_title }>퍼센트 계산기</span>
-                            <span className={ styles.stonelist_item__stone_describe }>퍼센트 계산을 간단하게 수행할 수 있도록 구성된 사이트로 기본적인 퍼센트, 비율, 값 계산이 가능한 사이트로 아주 간단한 프로젝트</span>
+                            <span className={ styles.stonelist_item__stone_category }>{ item.category.name }</span>
+                            <span className={ styles.stonelist_item__stone_title }>{ item.name }</span>
+                            <span className={ styles.stonelist_item__stone_describe }>{ item.describe }</span>
                         </div>
                         
                         <div>
-                            <span className={ styles.stonelist_item__stone_uptime }>4 hours age</span>
+                            <span className={ styles.stonelist_item__stone_uptime }>{ item.createAt.split('T')[0] }</span>
                         </div>
-                    </div>
-                )) }
+                    </div> )
+                }) }
             </div>
         </div>
     )

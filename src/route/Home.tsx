@@ -23,7 +23,7 @@ function Home() {
 
     return (
         <>
-            <Loading loading={ false } />
+            <Loading loading={ !service } />
             <div>
                 <Header defaultColor={ 'white' } />
                 <MainSplash />

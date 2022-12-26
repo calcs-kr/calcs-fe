@@ -27,8 +27,8 @@ function StoneList() {
             </div>
 
             <div className={[ styles.stonelist_item, styles.stonelist_item_stone ].join(' ')}>
-                { a.map(() => (
-                    <div className={ styles.stonelist_item__stone }>
+                { a.map((item) => (
+                    <div className={ styles.stonelist_item__stone } key={ item }>
                         <img className={ styles.stonelist_item__stone_img } src='/img/stone.png' alt='' />
                         <span className={ styles.stonelist_item__stone_name }>Amethyst</span>
                         <span className={ styles.stonelist_item__stone_date }>2022.12.04</span>
