@@ -1,18 +1,18 @@
 .stonekey_frame { width: 1320px; margin: 80px calc((100% - 1320px) / 2); display: grid; column-gap: 60px; grid-template-columns: 16% 80%; }
-.stonekey_item:nth-child(1) { grid-column-start: 1; grid-column-end: 3; }
-.stonekey_item:nth-child(4) { grid-column-start: 1; grid-column-end: 3; }
+.stonekey_item:nth-child(1) { }
+.stonekey_item:nth-child(4) { }
 
 
-.stonekey_item_head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-.stonekey_item_head span { font-size: 4rem; font-weight: 100; }
+.stonekey_item_head { display: flex; align-items: end; justify-content: space-between; }
+.stonekey_item__head { font-size: 4rem; font-weight: 100; }
+.stonekey_item__count { margin: 0 0 10px 0; }
 .stonekey_item__search {
     height: 28px;
     width: 200px;
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
     display: flex;
     align-items: center;
     border: 1px solid #D9DADB;
-    border-radius: 4px;
 }
 
 .stonekey_item__search img { height: 30px; }
@@ -21,14 +21,41 @@
 
 
 /* 카테고리 리스트 */
-.stonekey_item_category { padding: 0 10px; display: flex; flex-direction: column; border: 1px solid #EEEEEE; border-top: 1px solid #494949; }
-.stonekey_item_category div { display: flex; justify-content: space-between; padding: 10px 0; }
+.stonekey_item_category { display: flex; flex-direction: column; border-top: 1px solid #494949; }
+.stonekey_item__title {  }
+.stonekey_item__category { padding: 10px; display: flex; flex-direction: column; border: 1px solid #EEEEEE; border-top: none; min-height: 0px; overflow: hidden; transition: all ease 0.8s; }
+.stonekey_item__category_classify { display: flex; align-items: center; justify-content: space-between; }
+.stonekey_item__category_classify span { font-size: 1.2rem; }
+.stonekey_item__category_body { margin: 4px 0 0 0; }
+.stonekey_item__category__body { margin: 4px 0 4px 0; display: flex; justify-content: space-between; color: #767676; }
+.stonekey_item__category__body_name::before { content: ' '; height: 5px; width: 5px; margin-right: 4px; display: inline-block; border: 1px solid #DBDBDB; border-top: none; border-right: none; }
+
+.dropdown_active { max-height: 100%; }
+.dropdown_disable { max-height: 18px; }
+
+.stonekey_item__category_icon { 
+    height: 14px;
+    width: 14px;
+    background-color: var(--text2);
+    --webkit-mask: url('/public/icon/angle-down.svg') no-repeat center;
+    mask: url('/public/icon/angle-down.svg') no-repeat center;
+    mask-size: cover; }
+
+
 
 
 /* 스톤 리스트 */
-.stonekey_item_body { padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 80px; border: 1px solid #EEEEEE; border-top: 1px solid #494949;  }
+.stonekey_item_body { display: flex; flex-direction: column; border-top: 1px solid #494949; }
+.stonekey_item__target { height: 40px; padding: 0 24px; display: flex; align-items: center; gap: 12px; border: 1px solid #EEEEEE; }
+.stonekey_item__target span:nth-child(1) { margin-right: 4px; font-size: 1.2rem; }
+.stonekey_item__target span:nth-child(2),
+.stonekey_item__target span:nth-child(3),
+.stonekey_item__target span:nth-child(5),
+.stonekey_item__target span:nth-child(6) { color: #767676; cursor: pointer; }
 
-.stonekey_item__stone { height: 300px; padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
+.stonekey_item__body { display: grid; grid-template-columns: repeat(4, 1fr); gap: 80px; }
+
+.stonekey_item__stone { height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
 
 
 .stonekey_item__stone div:nth-child(1) {  }
@@ -36,7 +63,7 @@
 
 
 .stonekey_item__stone div { display: flex; flex-direction: column; }
-.stonekey_item__stone div img { height: 140px; margin: 10px 0; object-fit: contain; }
+.stonekey_item__stone div img { height: 140px; margin: 20px 0; object-fit: contain; background-color: rgba( 0, 0, 0, 0.03 ); }
 .stonekey_item__stone div span { width: 100%; }
 
 

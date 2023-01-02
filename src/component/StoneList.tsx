@@ -21,8 +21,8 @@ function StoneList() {
     return (
         <div className={ styles.stonelist_frame }>
             <div className={[ styles.stonelist_item, styles.stonelist_item_title ].join(' ')}>
-                <span className={ styles.stonelist_item__title }>다양한 스톤을 살펴보고</span>
-                <span className={ styles.stonelist_item__title }>여러 아이디어를 확인해보세요</span>
+                <span className={ styles.stonelist_item__title }>다양한 스케치를 살펴보고</span>
+                <span className={ styles.stonelist_item__title }>진행될 프로젝트에 대해 확인해보세요</span>
                 <span className={ styles.stonelist_item__subhead }>02월 이후 스톤을 사용하시면 새로운 스톤을 다운로드 받을 수 있습니다</span>
             </div>
 
@@ -34,7 +34,6 @@ function StoneList() {
                         <span className={ styles.stonelist_item__stone_date }>2022.12.04</span>
                     </div>
                 )) }
-                
             </div>
         </div>
     )
