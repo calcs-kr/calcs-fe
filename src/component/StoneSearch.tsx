@@ -16,23 +16,18 @@ function StoneSearch() {
 	const dispatch = useAPIDispatch();
 
 	// 조회된 데이터 정의
-	const { loading, service, category, stack, error } = state
+	const { loading, service, category, stack, tag, error } = state
 
     const a = [1,2,3,4,5,6,7,8,9,10,11,12]
 
     // 필터 항목들
-    let frontend: [] = []
-    let backend: []  = []
-    let devops: []   = []
+    const [serviceList, setServiceList] = useState([])
 
-    const tag = ['Stone', 'Sketch', 'Mountain']
-
-    // 필터 선택 추가
-    stack?.result.map((stackItem) => {
-        if(stackItem['type'] === 'frontend') frontend.push(stackItem['name'])
-        if(stackItem['type'] === 'backend')  backend.push(stackItem['name'])
-        if(stackItem['type'] === 'devops')   devops.push(stackItem['name'])
-    })
+    useEffect(() => {
+        let temp: [] = []
+        service?.result.map((serviceItem) => temp.push(serviceItem) )
+        setServiceList(temp)
+    }, [service])
     
 
     // 드롭다운 기능이 동작할 항목 선택
@@ -44,7 +39,7 @@ function StoneSearch() {
         backend: boolean
         devops: boolean
     }
-    const [dropdownStatus, setDropdownStatus] = useState<dropdownType>({ 'category': true, 'tag': true, 'frontend': false, 'backend': false, 'devops': true })
+    const [dropdownStatus, setDropdownStatus] = useState<dropdownType>({ 'category': true, 'tag': false, 'frontend': false, 'backend': false, 'devops': false })
 
     // 아코디언 메뉴 클릭 시 동작
     function dropdownAction(ItemToBeAccordion: string) {
@@ -99,11 +94,11 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { tag.map((item) => (
-                            <div className={ styles.stonekey_item_side__filter__body } key={ item }>
-                                <input id={ item } type='checkbox' />
-                                <label htmlFor={ item }></label>
-                                <label htmlFor={ item }>{ item }</label>
+                        { tag?.result.map((item) => (
+                            <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
+                                <input id={ item['_id'] } type='checkbox' />
+                                <label htmlFor={ item['_id'] }></label>
+                                <label htmlFor={ item['_id'] }>{ item['name'] }</label>
                             </div>
                         )) }
                     </div>
@@ -120,13 +115,15 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { frontend.map((item) => (
-                            <div className={ styles.stonekey_item_side__filter__body } key={ item }>
-                                <input id={ item } type='checkbox' />
-                                <label htmlFor={ item }></label>
-                                <label htmlFor={ item }>{ item }</label>
-                            </div>
-                        )) }
+                        { stack?.result.map((item) => { 
+                            if( item['type'] !== 'frontend' ) return null
+                            return (
+                                <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
+                                    <input id={ item['_id'] } type='checkbox' />
+                                    <label htmlFor={ item['_id'] }></label>
+                                    <label htmlFor={ item['_id'] }>{ item['name'] }</label>
+                                </div>
+                        )} ) }
                     </div>
                 </div>
 
@@ -141,13 +138,15 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { backend.map((item) => (
-                            <div className={ styles.stonekey_item_side__filter__body } key={ item }>
-                                <input id={ item } type='checkbox' />
-                                <label htmlFor={ item }></label>
-                                <label htmlFor={ item }>{ item }</label>
-                            </div>
-                        )) }
+                        { stack?.result.map((item) => { 
+                            if( item['type'] !== 'backend' ) return null
+                            return (
+                                <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
+                                    <input id={ item['_id'] } type='checkbox' />
+                                    <label htmlFor={ item['_id'] }></label>
+                                    <label htmlFor={ item['_id'] }>{ item['name'] }</label>
+                                </div>
+                        )} ) }
                     </div>
                 </div>
 
@@ -162,13 +161,15 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { devops.map((item) => (
-                            <div className={ styles.stonekey_item_side__filter__body } key={ item }>
-                                <input id={ item } type='checkbox' />
-                                <label htmlFor={ item }></label>
-                                <label htmlFor={ item }>{ item }</label>
-                            </div>
-                        )) }
+                        { stack?.result.map((item) => { 
+                            if( item['type'] !== 'devops' ) return null
+                            return (
+                                <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
+                                    <input id={ item['_id'] } type='checkbox' />
+                                    <label htmlFor={ item['_id'] }></label>
+                                    <label htmlFor={ item['_id'] }>{ item['name'] }</label>
+                                </div>
+                        )} ) }
                     </div>
                 </div>
             </div>
@@ -184,8 +185,8 @@ function StoneSearch() {
                 </div>
 
                 <div className={ styles.stonekey_item__body }>
-                    { a.map((item) => (
-                        <div className={ styles.stonekey_item__stone } key={ item }>
+                    { serviceList.map((item) => (
+                        <div className={ styles.stonekey_item__stone } key={ item['_id'] }>
                             <div>
                                 <img src='/img/stone.png' alt='' />
 

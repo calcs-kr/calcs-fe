@@ -34,10 +34,11 @@ function App() {
       const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
       const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
       const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
+      const tag      = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/tag`)
 
       setTimeout( async function() {
         try {
-          dispatch({ type: 'SUCCESS', service: service.data, category: category.data, stack: stack.data })
+          dispatch({ type: 'SUCCESS', service: service.data, category: category.data, stack: stack.data, tag: tag.data })
         } catch (err) {
           console.log(err)
         }
