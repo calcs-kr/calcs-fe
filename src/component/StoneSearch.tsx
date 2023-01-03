@@ -18,8 +18,6 @@ function StoneSearch() {
 	// 조회된 데이터 정의
 	const { loading, service, category, stack, tag, error } = state
 
-    const a = [1,2,3,4,5,6,7,8,9,10,11,12]
-
     // 필터 항목들
     const [serviceList, setServiceList] = useState([])
 
@@ -28,7 +26,10 @@ function StoneSearch() {
         service?.result.map((serviceItem) => temp.push(serviceItem) )
         setServiceList(temp)
     }, [service])
-    
+
+    const nowPage = 1
+    const maxPageNumber = Math.ceil(serviceList.length / 12)
+
 
     // 드롭다운 기능이 동작할 항목 선택
     type dropdownType = {
@@ -56,10 +57,10 @@ function StoneSearch() {
             <div className={[ styles.stonekey_item, styles.stonekey_item_head ].join(' ')}>
                 <span className={ styles.stonekey_item__head_count }>8개의 스톤이 존재합니다.</span>
 
-                <form className={ styles.stonekey_item__head_search }>
+                <div className={ styles.stonekey_item__head_search }>
                     <input placeholder='search' />
                     <img src='/icon/search.png' alt='' />
-                </form>
+                </div>
             </div>
 
             <div className={[ styles.stonekey_item, styles.stonekey_item_side ].join(' ')}>
@@ -204,19 +205,35 @@ function StoneSearch() {
             </div>
 
             <div className={[ styles.stonekey_item, styles.stonekey_item_pagenation ].join(' ')}>
-                <div className={ styles.stonekey_item__img }>
-                    <div className={[ styles.icon_left ].join(' ')}></div>
-                </div>
-                { a.map((item, index) => {
-                    if( index > 6 ) return
-                    return (
-                        <span key={item}>{item}</span>
-                )} ) }
-                <span>...</span>
-                <span>8</span>
-                <div className={ styles.stonekey_item__img }>
-                    <div className={[ styles.icon_right ].join(' ')}></div>
-                </div>
+                { nowPage >= 4
+                ? <>
+                    <div className={ styles.stonekey_item__img }>
+                        <div className={[ styles.icon_left ].join(' ')}></div>
+                    </div>
+                    <span>1</span>
+                    <span>...</span>
+                </>
+                : null }
+                
+                { nowPage-3 > 1 ? <span>{nowPage-3}</span> : null }
+                { nowPage-2 > 1 ? <span>{nowPage-2}</span> : null }
+                { nowPage-1 > 1 ? <span>{nowPage-1}</span> : null }
+                
+                <span>{ nowPage }</span>
+
+                { nowPage+1 <= maxPageNumber ? <span>{nowPage+1}</span> : null }
+                { nowPage+2 <= maxPageNumber ? <span>{nowPage+2}</span> : null }
+                { nowPage+3 <= maxPageNumber ? <span>{nowPage+3}</span> : null }
+
+                { nowPage <= maxPageNumber - 2
+                ? <>
+                    <span>...</span>
+                    <span>{ maxPageNumber }</span>
+                    <div className={ styles.stonekey_item__img }>
+                        <div className={[ styles.icon_right ].join(' ')}></div>
+                    </div>
+                </>
+                : null }
             </div>
         </div>
     )

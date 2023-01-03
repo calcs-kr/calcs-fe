@@ -46,9 +46,7 @@
 .stonekey_item_side__category__body { margin: 4px 0 4px 0; display: flex; justify-content: space-between; color: #767676; text-decoration: none; }
 .stonekey_item_side__filter__body    { margin: 4px 0 4px 0; display: flex; align-items: center; color: #767676; }
 
-.stonekey_item_side__filter__body input {
-    display: none;
-}
+.stonekey_item_side__filter__body input { display: none; }
 .stonekey_item_side__filter__body input + label {
 	width: 16px;
 	height: 16px;
@@ -84,11 +82,9 @@
 /* 스톤 리스트 */
 .stonekey_item_body { display: flex; flex-direction: column; border-top: 1px solid #494949; }
 .stonekey_item__target { height: 40px; padding: 0 24px; display: flex; align-items: center; gap: 12px; border: 1px solid #EEEEEE; }
-.stonekey_item__target span:nth-child(1) { margin-right: 4px; font-size: 1.2rem; }
-.stonekey_item__target span:nth-child(2),
-.stonekey_item__target span:nth-child(3),
-.stonekey_item__target span:nth-child(5),
-.stonekey_item__target span:nth-child(6) { color: #767676; cursor: pointer; }
+.stonekey_item__target span:nth-child(1) { margin-right: 4px; font-size: 1.2rem; color: #000000; }
+.stonekey_item__target span { color: #767676; cursor: pointer; }
+.stonekey_item__target span:hover { color: #000000 }
 
 .stonekey_item__body { display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 40px; column-gap: 80px; }
 
