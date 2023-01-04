@@ -1,3 +1,7 @@
+// 설정 파일
+import axios from 'axios'
+import config from '../config'
+
 // React
 import { useEffect, useState } from 'react'
 
@@ -5,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
 
 // React
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 // Style
 import styles from './StoneSearch.module.css';
@@ -18,18 +22,43 @@ function StoneSearch() {
 	// 조회된 데이터 정의
 	const { loading, service, category, stack, tag, error } = state
 
-    // 필터 항목들
+    // 스톤 리스트
     const [serviceList, setServiceList] = useState([])
-
     useEffect(() => {
         let temp: [] = []
         service?.result.map((serviceItem) => temp.push(serviceItem) )
         setServiceList(temp)
     }, [service])
 
-    const nowPage = 1
-    const maxPageNumber = Math.ceil(serviceList.length / 12)
+    interface Filter {
+        keyword: string;
+        category: string;
+        tag: Array<string|null>;
+        stack: Array<string|null>;
+    }
 
+    // 쿼리 스트링 조회
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filter, setFilter] = useState<Filter>({ 'keyword': '', 'category': '', 'tag': [], 'stack': [] })
+
+    /*
+    useEffect(() => {
+        setFilter({
+            'keyword': searchParams.get('keyword'),
+            'category': searchParams.get('category'),
+            'tag': [searchParams.get('tag')],
+            'stack': [searchParams.get('stack')],
+        })
+    }, [])
+    */
+    
+    // 페이지네이션 페이지
+    const [nowPage, setNowPage] = useState(1)
+    const [maxPage, setMaxPage] = useState(0)
+
+    useEffect(() => {
+        setMaxPage(Math.ceil(serviceList.length / 12))
+    }, [serviceList])
 
     // 드롭다운 기능이 동작할 항목 선택
     type dropdownType = {
@@ -48,6 +77,52 @@ function StoneSearch() {
         setDropdownStatus(prev => ({ ...prev, [ItemToBeAccordion]: !dropdownStatus[ItemToBeAccordion] }) )
     }
 
+    // 이름과 팀원 검색
+    function filterKeywordHandler(e: any) {
+        setFilter(prev => ({ ...prev, keyword: e.target.value }))
+    }
+
+    // 카테고리 필터링
+    function filterCategoryHandler(e: any) {
+        e.target.id === 'all'
+        ? setFilter(prev => ({ ...prev, category: '' }))
+        : setFilter(prev => ({ ...prev, category: e.target.id }))
+    }
+
+    // 스택 필터링
+    function filterStackHandler(e: any) {
+        let tmp = filter['stack']
+        
+        e.target.checked
+        ? tmp.push(e.target.id)
+        : tmp = tmp.filter((element) => element !== e.target.id)
+
+        setFilter(prev => ({ ...prev, stack: tmp }))
+    }
+
+    // 태그 필터링
+    function filterTagHandler(e: any) {
+        let tmp = filter['tag']
+        
+        e.target.checked
+        ? tmp.push(e.target.id)
+        : tmp = tmp.filter((element) => element !== e.target.id)
+
+        setFilter(prev => ({ ...prev, tag: tmp }))
+    }
+
+    // 필터링 변경 시 데이터 조회
+    useEffect(() => {
+        getBatchData()
+    }, [filter])
+
+    // 데이터 조회 함수
+    const getBatchData = async () => {
+        console.log(filter)
+        const service = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?keyword=${filter['keyword']}&category=${filter['category']}&tag=${filter['tag']}&stack=${filter['stack']}`)
+        setServiceList(service.data.result)
+    }
+
     return (
         <div className={ styles.stonekey }>
             <div className={[ styles.stonekey_item, styles.stonekey_item_title ].join(' ')}>
@@ -58,7 +133,7 @@ function StoneSearch() {
                 <span className={ styles.stonekey_item__head_count }>8개의 스톤이 존재합니다.</span>
 
                 <div className={ styles.stonekey_item__head_search }>
-                    <input placeholder='search' />
+                    <input type='text' placeholder='search' value={filter.keyword} onChange={filterKeywordHandler} />
                     <img src='/icon/search.png' alt='' />
                 </div>
             </div>
@@ -75,9 +150,12 @@ function StoneSearch() {
                     </div>
                     
                     <div className={ styles.stonekey_item_side__category_body }>
+                        <Link to={ `/stone` } className={ styles.stonekey_item_side__category__body }>
+                            <span className={ styles.stonekey_item_side__category__body_name } id='all' onClick={(e) => filterCategoryHandler(e)}>All</span>
+                        </Link>
                         { category?.result.map((item) => (
                             <Link to={ `?category=${ item['name'] }` } className={ styles.stonekey_item_side__category__body } key={ item }>
-                                <span className={ styles.stonekey_item_side__category__body_name }>{ item['name'] }</span>
+                                <span className={ styles.stonekey_item_side__category__body_name } id={ item['_id'] } onClick={(e) => filterCategoryHandler(e)}>{ item['name'] }</span>
                                 <span>1</span>
                             </Link>
                         )) }
@@ -97,7 +175,7 @@ function StoneSearch() {
                     <div className={ styles.stonekey_item_side__filter_body }>
                         { tag?.result.map((item) => (
                             <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
-                                <input id={ item['_id'] } type='checkbox' />
+                                <input id={ item['_id'] } type='checkbox' onChange={(e) => filterTagHandler(e)} />
                                 <label htmlFor={ item['_id'] }></label>
                                 <label htmlFor={ item['_id'] }>{ item['name'] }</label>
                             </div>
@@ -120,7 +198,7 @@ function StoneSearch() {
                             if( item['type'] !== 'frontend' ) return null
                             return (
                                 <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
-                                    <input id={ item['_id'] } type='checkbox' />
+                                    <input id={ item['_id'] } type='checkbox' onChange={(e) => filterStackHandler(e)} />
                                     <label htmlFor={ item['_id'] }></label>
                                     <label htmlFor={ item['_id'] }>{ item['name'] }</label>
                                 </div>
@@ -143,7 +221,7 @@ function StoneSearch() {
                             if( item['type'] !== 'backend' ) return null
                             return (
                                 <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
-                                    <input id={ item['_id'] } type='checkbox' />
+                                    <input id={ item['_id'] } type='checkbox' onChange={(e) => filterStackHandler(e)} />
                                     <label htmlFor={ item['_id'] }></label>
                                     <label htmlFor={ item['_id'] }>{ item['name'] }</label>
                                 </div>
@@ -166,7 +244,7 @@ function StoneSearch() {
                             if( item['type'] !== 'devops' ) return null
                             return (
                                 <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
-                                    <input id={ item['_id'] } type='checkbox' />
+                                    <input id={ item['_id'] } type='checkbox' onChange={(e) => filterStackHandler(e)} />
                                     <label htmlFor={ item['_id'] }></label>
                                     <label htmlFor={ item['_id'] }>{ item['name'] }</label>
                                 </div>
@@ -186,21 +264,27 @@ function StoneSearch() {
                 </div>
 
                 <div className={ styles.stonekey_item__body }>
-                    { serviceList.map((item) => (
+                    { serviceList.length > 0 
+                    ? serviceList?.map((item, index) => {
+                        if(index >= nowPage*12-12 && index <= nowPage*12-1) return (
                         <div className={ styles.stonekey_item__stone } key={ item['_id'] }>
                             <div>
                                 <img src='/img/stone.png' alt='' />
 
-                                <span className={ styles.stonekey_item__stone_category }>CALC</span>
-                                <span className={ styles.stonekey_item__stone_title }>퍼센트 계산기</span>
-                                <span className={ styles.stonekey_item__stone_describe }>퍼센트 계산을 간단하게 수행할 수 있도록 구성된 사이트로 기본적인 퍼센트, 비율, 값 계산이 가능한 사이트로 아주 간단한 프로젝트</span>
+                                <span className={ styles.stonekey_item__stone_category }>{ item['category']['name'] }</span>
+                                <span className={ styles.stonekey_item__stone_title }>{ item['name'] }</span>
+                                <span className={ styles.stonekey_item__stone_describe }>{ item['describe'] }</span>
                             </div>
 
                             <div>
                                 <span className={ styles.stonekey_item__stone_uptime }>4 hours age</span>
                             </div>
                         </div>
-                    )) }
+                    )} ) 
+                    : <div className={ styles.stonekey_item__none }>
+                        <span>검색된 항목이 없습니다.</span>
+                    </div>
+                    }
                 </div>
             </div>
 
@@ -215,20 +299,20 @@ function StoneSearch() {
                 </>
                 : null }
                 
-                { nowPage-3 > 1 ? <span>{nowPage-3}</span> : null }
-                { nowPage-2 > 1 ? <span>{nowPage-2}</span> : null }
-                { nowPage-1 > 1 ? <span>{nowPage-1}</span> : null }
+                { nowPage-3 > 0 ? <span>{nowPage-3}</span> : null }
+                { nowPage-2 > 0 ? <span>{nowPage-2}</span> : null }
+                { nowPage-1 > 0 ? <span>{nowPage-1}</span> : null }
                 
-                <span>{ nowPage }</span>
+                <span className={ styles.stonekey_item__pagenation_now }>{ nowPage }</span>
 
-                { nowPage+1 <= maxPageNumber ? <span>{nowPage+1}</span> : null }
-                { nowPage+2 <= maxPageNumber ? <span>{nowPage+2}</span> : null }
-                { nowPage+3 <= maxPageNumber ? <span>{nowPage+3}</span> : null }
+                { nowPage+1 <= maxPage ? <span>{nowPage+1}</span> : null }
+                { nowPage+2 <= maxPage ? <span>{nowPage+2}</span> : null }
+                { nowPage+3 <= maxPage ? <span>{nowPage+3}</span> : null }
 
-                { nowPage <= maxPageNumber - 2
+                { nowPage <= maxPage - 2
                 ? <>
                     <span>...</span>
-                    <span>{ maxPageNumber }</span>
+                    <span>{ maxPage }</span>
                     <div className={ styles.stonekey_item__img }>
                         <div className={[ styles.icon_right ].join(' ')}></div>
                     </div>
