@@ -21,7 +21,7 @@ function StoneForKeyWord() {
         setTagItems(service?.result)
     }, [service])
 
-    enum Tag { 'all', 'stone', 'mountain', 'sketch' }
+    enum Tag { 'all', 'Stone', 'Mountain', 'Sketch' }
     const [tag, setTag] = useState('all')
     function selectTag(str: string) { setTag(str) }
     useEffect(() => {
@@ -32,7 +32,7 @@ function StoneForKeyWord() {
 
         const temp: [] = []
         service?.result.map((item) => {   // 특정 태그
-            if(item['tag'] !== tag) return
+            if(item['tag']['name'] !== tag) return
             temp.push(item)
         })
         setTagItems(temp)
@@ -49,9 +49,9 @@ function StoneForKeyWord() {
             <div className={[ styles.stonekey_item, styles.stonekey_item_tag ].join(' ')}>
                 <div>
                     <span className={[ styles.stonekey_item__tag, tag === 'all' ? styles.active : '' ].join(' ')} onClick={() => selectTag('all')}>전체</span>
-                    <span className={[ styles.stonekey_item__tag, tag === 'stone' ? styles.active : '' ].join(' ')} onClick={() => selectTag('stone')}>스톤</span>
-                    <span className={[ styles.stonekey_item__tag, tag === 'mountain' ? styles.active : '' ].join(' ')} onClick={() => selectTag('mountain')}>마운틴</span>
-                    <span className={[ styles.stonekey_item__tag, tag === 'sketch' ? styles.active : '' ].join(' ')} onClick={() => selectTag('sketch')}>스케치</span>
+                    <span className={[ styles.stonekey_item__tag, tag === 'Stone' ? styles.active : '' ].join(' ')} onClick={() => selectTag('Stone')}>스톤</span>
+                    <span className={[ styles.stonekey_item__tag, tag === 'Mountain' ? styles.active : '' ].join(' ')} onClick={() => selectTag('Mountain')}>마운틴</span>
+                    <span className={[ styles.stonekey_item__tag, tag === 'Sketch' ? styles.active : '' ].join(' ')} onClick={() => selectTag('Sketch')}>스케치</span>
                 </div>
             </div>
 

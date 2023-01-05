@@ -280,12 +280,12 @@ function StoneSearch() {
             <div className={[ styles.stonekey_item, styles.stonekey_item_body ].join(' ')}>
                 <div className={ styles.stonekey_item__target }>
                     <span>연관검색어</span>
-                    <span onClick={ () => relatedSearch('') }>전체</span>
-                    <span onClick={ () => relatedSearch('discord') }>디스코드</span>
-                    <span onClick={ () => relatedSearch('Isedol') }>이세돌</span>
-                    <span onClick={ () => relatedSearch('minecraft') }>마인크래프트</span>
-                    <span onClick={ () => relatedSearch('library') }>라이브러리</span>
-                    <span onClick={ () => relatedSearch('calc') }>계산기</span>
+                    <span className={ filter['keyword'] === '' ? styles.category_active : styles.category_disable } onClick={ () => relatedSearch('') }>전체</span>
+                    <span className={ filter['keyword'] === 'discord' ? styles.category_active : styles.category_disable } onClick={ () => relatedSearch('discord') }>디스코드</span>
+                    <span className={ filter['keyword'] === 'Isedol' ? styles.category_active : styles.category_disable } onClick={ () => relatedSearch('Isedol') }>이세돌</span>
+                    <span className={ filter['keyword'] === 'minecraft' ? styles.category_active : styles.category_disable } onClick={ () => relatedSearch('minecraft') }>마인크래프트</span>
+                    <span className={ filter['keyword'] === 'library' ? styles.category_active : styles.category_disable } onClick={ () => relatedSearch('library') }>라이브러리</span>
+                    <span className={ filter['keyword'] === 'calc' ? styles.category_active : styles.category_disable } onClick={ () => relatedSearch('calc') }>계산기</span>
                 </div>
 
                 <div className={ styles.stonekey_item__body }>
@@ -333,7 +333,7 @@ function StoneSearch() {
                 { nowPage-2 > 0 ? <span onClick={() => chnagePage(nowPage-2)}>{nowPage-2}</span> : null }
                 { nowPage-1 > 0 ? <span onClick={() => chnagePage(nowPage-1)}>{nowPage-1}</span> : null }
                 
-                <span className={ styles.stonekey_item__pagenation_now }>{ nowPage }</span>
+                <span className={[ styles.stonekey_item__pagenation_now, styles.category_active ].join(' ')}>{ nowPage }</span>
 
                 { nowPage+1 <= maxPage ? <span onClick={() => chnagePage(nowPage+1)}>{nowPage+1}</span> : null }
                 { nowPage+2 <= maxPage ? <span onClick={() => chnagePage(nowPage+2)}>{nowPage+2}</span> : null }
