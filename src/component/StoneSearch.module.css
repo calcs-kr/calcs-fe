@@ -1,5 +1,5 @@
 /********** 프레임 **********/
-.stonekey { width: 1320px; margin: 80px calc((100% - 1310px) / 2); display: grid; column-gap: 60px; grid-template-columns: 210px 1050px; }
+.stonekey { width: 1320px; margin: 80px calc((100% - 1310px) / 2) 0; display: grid; column-gap: 60px; grid-template-columns: 210px 1050px; }
 .stonekey_item:nth-child(5) { grid-column: 2 / 3; }
 
 
@@ -43,7 +43,7 @@
 /* 사이드 메뉴 구분 내용 */
 .stonekey_item_side__category_body,
 .stonekey_item_side__filter_body    { margin: 4px 0 0 0; }
-.stonekey_item_side__category__body { margin: 4px 0 4px 0; display: flex; justify-content: space-between; color: #767676; text-decoration: none; }
+.stonekey_item_side__category__body { margin: 4px 0 4px 0; display: flex; justify-content: space-between; color: #767676; text-decoration: none; cursor: pointer; }
 .stonekey_item_side__filter__body    { margin: 4px 0 4px 0; display: flex; align-items: center; color: #767676; }
 
 .stonekey_item_side__filter__body input { display: none; }
@@ -89,19 +89,23 @@
 .stonekey_item__body { display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 40px; column-gap: 80px; }
 
 .stonekey_item__none { height: 300px; display: flex; align-items: center; justify-content: center; grid-column: 1 / 5; }
-.stonekey_item__stone { height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
+.stonekey_item__stone { display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
 
-.stonekey_item__stone div:nth-child(1) {  }
-.stonekey_item__stone div:nth-child(2) { width: 100%; }
-
-
-.stonekey_item__stone div { display: flex; flex-direction: column; }
-.stonekey_item__stone div img { height: 140px; margin: 20px 0; object-fit: contain; background-color: rgba( 0, 0, 0, 0.03 ); }
-.stonekey_item__stone div span { width: 100%; }
+.stonekey_item__stone_item:nth-child(1) {  }
+.stonekey_item__stone_item:nth-child(2) { width: 100%; }
 
 
-.stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.stonekey_item__stone_item { display: flex; flex-direction: column; }
+.stonekey_item__stone_item img { height: 140px; margin: 20px 0 8px; padding: 40px; object-fit: contain; background-color: rgba( 0, 0, 0, 0.03 ); }
+.stonekey_item__stone_item span { width: 100%; }
 
+
+.stonekey_item__stone_category { color: #505050; cursor: pointer; }
+.stonekey_item__stone_title    { font-size: 1.2rem; color: #494949; }
+.stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+.stonekey_item__stone_stack { margin-top: 8px; }
+.stonekey_item__stone__stack { margin: 4px 4px 0 0; padding: 2px 4px; border-radius: 20px; background-color: #F1F1F5; line-height: 24px; word-break: break-all; }
 
 
 /* 페이지네이션 */
@@ -112,7 +116,7 @@
 .stonekey_item__img  { height: 24px; width: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .stonekey_item__img:hover { background-color: #DDDDDD; }
 
-.stonekey_item__pagenation_now { font-weight: bold; }
+.stonekey_item__pagenation_now {  }
 
 
 .icon_left  {

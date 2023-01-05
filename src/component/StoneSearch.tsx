@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
 
 // React
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // Style
 import styles from './StoneSearch.module.css';
@@ -22,6 +22,16 @@ function StoneSearch() {
 	// 조회된 데이터 정의
 	const { loading, service, category, stack, tag, error } = state
 
+    // 필터 데이터 정의
+    interface Filter {
+        keyword: string;
+        category: string | null;
+        tag: Array<string|null>;
+        stack: Array<string|null>;
+    }
+    const [filter, setFilter] = useState<Filter>({ keyword: '', category: '', tag: [], stack: [] })
+
+
     // 스톤 리스트
     const [serviceList, setServiceList] = useState([])
     useEffect(() => {
@@ -29,28 +39,6 @@ function StoneSearch() {
         service?.result.map((serviceItem) => temp.push(serviceItem) )
         setServiceList(temp)
     }, [service])
-
-    interface Filter {
-        keyword: string;
-        category: string;
-        tag: Array<string|null>;
-        stack: Array<string|null>;
-    }
-
-    // 쿼리 스트링 조회
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [filter, setFilter] = useState<Filter>({ 'keyword': '', 'category': '', 'tag': [], 'stack': [] })
-
-    /*
-    useEffect(() => {
-        setFilter({
-            'keyword': searchParams.get('keyword'),
-            'category': searchParams.get('category'),
-            'tag': [searchParams.get('tag')],
-            'stack': [searchParams.get('stack')],
-        })
-    }, [])
-    */
     
     // 페이지네이션 페이지
     const [nowPage, setNowPage] = useState(1)
@@ -65,11 +53,12 @@ function StoneSearch() {
         [index: string]: boolean  // Index Signature 추가
         category: boolean
         tag: boolean
+        design: boolean
         frontend: boolean
         backend: boolean
         devops: boolean
     }
-    const [dropdownStatus, setDropdownStatus] = useState<dropdownType>({ 'category': true, 'tag': false, 'frontend': false, 'backend': false, 'devops': false })
+    const [dropdownStatus, setDropdownStatus] = useState<dropdownType>({ 'category': true, 'tag': true, 'design': false, 'frontend': false, 'backend': false, 'devops': false })
 
     // 아코디언 메뉴 클릭 시 동작
     function dropdownAction(ItemToBeAccordion: string) {
@@ -111,6 +100,11 @@ function StoneSearch() {
         setFilter(prev => ({ ...prev, tag: tmp }))
     }
 
+    // 연관 검색어
+    function relatedSearch (relatedSearchKeyword: string) {
+        setFilter(prev => ({ ...prev, keyword: relatedSearchKeyword }))
+    }
+
     // 필터링 변경 시 데이터 조회
     useEffect(() => {
         getBatchData()
@@ -118,7 +112,6 @@ function StoneSearch() {
 
     // 데이터 조회 함수
     const getBatchData = async () => {
-        console.log(filter)
         const service = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?keyword=${filter['keyword']}&category=${filter['category']}&tag=${filter['tag']}&stack=${filter['stack']}`)
         setServiceList(service.data.result)
     }
@@ -150,14 +143,14 @@ function StoneSearch() {
                     </div>
                     
                     <div className={ styles.stonekey_item_side__category_body }>
-                        <Link to={ `/stone` } className={ styles.stonekey_item_side__category__body }>
+                        <div className={ styles.stonekey_item_side__category__body }>
                             <span className={ styles.stonekey_item_side__category__body_name } id='all' onClick={(e) => filterCategoryHandler(e)}>All</span>
-                        </Link>
+                        </div>
                         { category?.result.map((item) => (
-                            <Link to={ `?category=${ item['name'] }` } className={ styles.stonekey_item_side__category__body } key={ item }>
+                            <div className={ styles.stonekey_item_side__category__body } key={ item['_id'] }>
                                 <span className={ styles.stonekey_item_side__category__body_name } id={ item['_id'] } onClick={(e) => filterCategoryHandler(e)}>{ item['name'] }</span>
                                 <span>1</span>
-                            </Link>
+                            </div>
                         )) }
                     </div>
                 </div>
@@ -180,6 +173,29 @@ function StoneSearch() {
                                 <label htmlFor={ item['_id'] }>{ item['name'] }</label>
                             </div>
                         )) }
+                    </div>
+                </div>
+
+                <div className={[ styles.stonekey_item_side__category, 
+                    dropdownStatus.design 
+                    ? styles.dropdown_active 
+                    : styles.dropdown_disable ]
+                    .join(' ')}>
+                    <div className={ styles.stonekey_item_side__filter_classify } onClick={ () => dropdownAction('design') }>
+                        <span>디자인</span>
+                        <div className={ styles.stonekey_item_side__category_icon } />
+                    </div>
+
+                    <div className={ styles.stonekey_item_side__filter_body }>
+                        { stack?.result.map((item) => { 
+                            if( item['type'] !== 'design' ) return null
+                            return (
+                                <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
+                                    <input id={ item['_id'] } type='checkbox' onChange={(e) => filterStackHandler(e)} />
+                                    <label htmlFor={ item['_id'] }></label>
+                                    <label htmlFor={ item['_id'] }>{ item['name'] }</label>
+                                </div>
+                        )} ) }
                     </div>
                 </div>
 
@@ -256,28 +272,33 @@ function StoneSearch() {
             <div className={[ styles.stonekey_item, styles.stonekey_item_body ].join(' ')}>
                 <div className={ styles.stonekey_item__target }>
                     <span>연관검색어</span>
-                    <span>디스코드</span>
-                    <span>이세돌</span>
-                    <span>마인크래프트</span>
-                    <span>라이브러리</span>
-                    <span>계산기</span>
+                    <span onClick={ () => relatedSearch('discord') }>디스코드</span>
+                    <span onClick={ () => relatedSearch('Isedol') }>이세돌</span>
+                    <span onClick={ () => relatedSearch('minecraft') }>마인크래프트</span>
+                    <span onClick={ () => relatedSearch('library') }>라이브러리</span>
+                    <span onClick={ () => relatedSearch('calc') }>계산기</span>
                 </div>
 
                 <div className={ styles.stonekey_item__body }>
                     { serviceList.length > 0 
-                    ? serviceList?.map((item, index) => {
+                    ? serviceList?.map((item: {'stack': [], '_id': string, 'category': {'name': string}, 'name': string, describe: string}, index) => {
                         if(index >= nowPage*12-12 && index <= nowPage*12-1) return (
                         <div className={ styles.stonekey_item__stone } key={ item['_id'] }>
-                            <div>
+                            <div className={ styles.stonekey_item__stone_item }>
                                 <img src='/img/stone.png' alt='' />
 
                                 <span className={ styles.stonekey_item__stone_category }>{ item['category']['name'] }</span>
                                 <span className={ styles.stonekey_item__stone_title }>{ item['name'] }</span>
                                 <span className={ styles.stonekey_item__stone_describe }>{ item['describe'] }</span>
-                            </div>
 
-                            <div>
-                                <span className={ styles.stonekey_item__stone_uptime }>4 hours age</span>
+                                <div className={ styles.stonekey_item__stone_stack }>
+                                    { item['stack'].map((itemStack) => {
+                                        if( itemStack['type'] !== 'frontend' && itemStack['type'] !== 'backend' ) return
+                                        return (
+                                            <span className={ styles.stonekey_item__stone__stack } key={ itemStack['_id'] }>{ itemStack['name'] }</span>
+                                        )
+                                    }) }
+                                </div>
                             </div>
                         </div>
                     )} ) 
