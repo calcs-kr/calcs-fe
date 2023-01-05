@@ -30,6 +30,8 @@ html {
 
     --text1: #FFFFFF;
     --text2: #000000;
+    --text_select: #333333;
+    --text_unselect: #999999;
 
     --size1: 12px;
 }

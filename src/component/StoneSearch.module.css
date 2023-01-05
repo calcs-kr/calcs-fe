@@ -1,67 +1,135 @@
-.stonekey_frame { width: 1320px; margin: 80px calc((100% - 1320px) / 2); display: grid; column-gap: 60px; grid-template-columns: 16% 80%; }
-.stonekey_item:nth-child(1) { grid-column-start: 1; grid-column-end: 3; }
-.stonekey_item:nth-child(4) { grid-column-start: 1; grid-column-end: 3; }
+/********** 프레임 **********/
+.stonekey { width: 1320px; margin: 80px calc((100% - 1310px) / 2) 0; display: grid; column-gap: 60px; grid-template-columns: 210px 1050px; }
+.stonekey_item:nth-child(5) { grid-column: 2 / 3; }
 
 
-.stonekey_item_head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-.stonekey_item_head span { font-size: 4rem; font-weight: 100; }
-.stonekey_item__search {
+/* 상단 섹션 */
+.stonekey_item_head         { display: flex; align-items: end; justify-content: space-between; }
+.stonekey_item_head__title  { font-size: 4rem; font-weight: 100; }
+.stonekey_item__head_count  { margin: 0 0 10px 0; }
+.stonekey_item__head_search {
     height: 28px;
     width: 200px;
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
     display: flex;
     align-items: center;
     border: 1px solid #D9DADB;
-    border-radius: 4px;
+}
+.stonekey_item__head_search img         { height: 30px; }
+.stonekey_item__head_search input       { height: 80%; width: 80%; padding-left: 12px; border: none; }
+.stonekey_item__head_search input:focus { outline: none; }
+
+
+/********** 사이드 메뉴 **********/
+/* 사이드 메뉴 */
+.stonekey_item_side { display: flex; flex-direction: column; border-top: 1px solid #494949; }
+.stonekey_item_side__category { padding: 10px; display: flex; flex-direction: column; border: 1px solid #EEEEEE; border-top: none; min-height: 0px; overflow: hidden; transition: all linear 0.4s; }
+
+/* 사이드 메뉴 구분 */
+.stonekey_item_side__category_classify,
+.stonekey_item_side__filter_classify { display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.stonekey_item_side__category_classify span,
+.stonekey_item_side__filter_classify span { font-size: 1.2rem; }
+
+.stonekey_item_side__category_icon { 
+    height: 14px;
+    width: 14px;
+    background-color: var(--text2);
+    --webkit-mask: url('/public/icon/angle-down.svg') no-repeat center;
+    mask: url('/public/icon/angle-down.svg') no-repeat center;
+    mask-size: cover;
 }
 
-.stonekey_item__search img { height: 30px; }
-.stonekey_item__search input { height: 80%; width: 80%; padding-left: 12px; border: none; }
-.stonekey_item__search input:focus { outline: none; }
+/* 사이드 메뉴 구분 내용 */
+.stonekey_item_side__category_body,
+.stonekey_item_side__filter_body    { margin: 4px 0 0 0; }
+.stonekey_item_side__category__body { margin: 4px 0 4px 0; display: flex; justify-content: space-between; color: #767676; text-decoration: none; cursor: pointer; }
+.stonekey_item_side__filter__body    { margin: 4px 0 4px 0; display: flex; align-items: center; color: #767676; }
+
+.stonekey_item_side__filter__body input { display: none; }
+.stonekey_item_side__filter__body input + label {
+	width: 16px;
+	height: 16px;
+    margin-right: 4px;
+    display: inline-block;
+	border: 1px solid #DBDBDB;
+	cursor: pointer;
+    box-sizing: border-box;
+}
+.stonekey_item_side__filter__body input:checked + label {
+    padding: 4px;
+    box-sizing: border-box;
+    background-color: #494949;
+}
+
+.stonekey_item_side__filter__body label {
+    color: #505050;
+    cursor: pointer;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.stonekey_item_side__category__body_name::before { content: ' '; height: 5px; width: 5px; margin-right: 4px; display: inline-block; border: 1px solid #DBDBDB; border-top: none; border-right: none; }
+.category_active { color: #000000; text-decoration : underline; }
+
+.dropdown_active { max-height: 200px; }
+.dropdown_disable { max-height: 16px; }
 
 
-/* 카테고리 리스트 */
-.stonekey_item_category { padding: 0 10px; display: flex; flex-direction: column; border: 1px solid #EEEEEE; border-top: 1px solid #494949; }
-.stonekey_item_category div { display: flex; justify-content: space-between; padding: 10px 0; }
 
-
+/********** 스톤 리스트 **********/
 /* 스톤 리스트 */
-.stonekey_item_body { padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 80px; border: 1px solid #EEEEEE; border-top: 1px solid #494949;  }
+.stonekey_item_body { display: flex; flex-direction: column; border-top: 1px solid #494949; }
+.stonekey_item__target { height: 40px; padding: 0 24px; display: flex; align-items: center; gap: 12px; border: 1px solid #EEEEEE; }
+.stonekey_item__target span:nth-child(1) { margin-right: 4px; font-size: 1.2rem; color: #000000; }
+.stonekey_item__target span { color: #767676; cursor: pointer; }
+.stonekey_item__target span:hover { color: #000000 }
 
-.stonekey_item__stone { height: 300px; padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
+.stonekey_item__body { display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 40px; column-gap: 80px; }
+
+.stonekey_item__none { height: 300px; display: flex; align-items: center; justify-content: center; grid-column: 1 / 5; }
+.stonekey_item__stone { display: flex; flex-direction: column; align-items: center; justify-content: space-between; border-radius: 10px; }
+
+.stonekey_item__stone_item:nth-child(1) {  }
+.stonekey_item__stone_item:nth-child(2) { width: 100%; }
 
 
-.stonekey_item__stone div:nth-child(1) {  }
-.stonekey_item__stone div:nth-child(2) { width: 100%; }
+.stonekey_item__stone_item { display: flex; flex-direction: column; }
+.stonekey_item__stone_item img { height: 140px; margin: 20px 0 8px; padding: 40px; object-fit: contain; background-color: rgba( 0, 0, 0, 0.03 ); }
+.stonekey_item__stone_item span { width: 100%; }
 
 
-.stonekey_item__stone div { display: flex; flex-direction: column; }
-.stonekey_item__stone div img { height: 140px; margin: 10px 0; object-fit: contain; }
-.stonekey_item__stone div span { width: 100%; }
+.stonekey_item__stone_category { color: #505050; cursor: pointer; }
+.stonekey_item__stone_title    { font-size: 1.2rem; color: #494949; }
+.stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 
-
-.stonekey_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+.stonekey_item__stone_stack { margin-top: 8px; }
+.stonekey_item__stone__stack { margin: 4px 4px 0 0; padding: 2px 4px; border-radius: 20px; background-color: #F1F1F5; line-height: 24px; word-break: break-all; }
 
 
 /* 페이지네이션 */
-.stonekey_item_pagenation { margin: 40px 20%; display: flex; justify-content: center; gap: 4px; }
-.stonekey_item_pagenation span { height: 24px; width: 24px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid #EEEEEE; border-radius: 4px; cursor: pointer; }
-.stonekey_item__img  { height: 24px; width: 24px; display: flex; align-items: center; justify-content: center; border: 1px solid #EEEEEE; border-radius: 4px; cursor: pointer; }
-
+.stonekey_item_pagenation { margin: 100px 0 40px 0; display: flex; justify-content: center; gap: 4px; }
+.stonekey_item_pagenation span { height: 24px; width: 24px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #767676; cursor: pointer; }
 .stonekey_item_pagenation span:hover { background-color: #DDDDDD; }
+
+.stonekey_item__img  { height: 24px; width: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .stonekey_item__img:hover { background-color: #DDDDDD; }
+
+.stonekey_item__pagenation_now {  }
 
 
 .icon_left  {
     height: 14px; width: 7px;
-    background-color: var(--text2);
+    background-color: #767676;
     --webkit-mask: url('/public/icon/angle-left.svg') no-repeat center;
     mask: url('/public/icon/angle-left.svg') no-repeat center;
     mask-size: cover; 
 }
 .icon_right {
     height: 14px; width: 7px;
-    background-color: var(--text2);
+    background-color: #767676;
     --webkit-mask: url('/public/icon/angle-right.svg') no-repeat center;
     mask: url('/public/icon/angle-right.svg') no-repeat center;
     mask-size: cover;

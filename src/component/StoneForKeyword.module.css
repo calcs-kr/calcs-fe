@@ -1,12 +1,15 @@
-.stonekey_frame { width: 1320px; margin: 80px calc((100% - 1320px) / 2); }
+.stonekey_frame { height: 475px; width: 1320px; margin: 80px calc((100% - 1320px) / 2); }
 
 .stonekey_item_title  { display: flex; flex-direction: column; text-align: center; }
 .stonekey_item__title { font-size: 2.6rem; font-weight: 100; }
+.stonekey_item__subhead { font-size: 1rem; font-weight: 100; }
 
 
-.stonekey_item_tag { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 20px 0 40px 0; }
+.stonekey_item_tag { display: flex; align-items: center; justify-content: center; margin: 20px 0 40px 0; }
 .stonekey_item_tag div { margin: 4px 0; }
-.stonekey_item_tag div span { margin: 0 4px; padding: 0 10px; border: 1px solid #DBDBDB; border-radius: 40px; font-size: 1.4rem; cursor: pointer; }
+
+.stonekey_item__tag { margin: 0 16px; padding: 0 10px; font-size: 1.2rem; color: var(--text_unselect); cursor: pointer; }
+.active { color: var(--text_select); }
 
 
 .stonekey_item_stone { display: grid; grid-template-columns: repeat(4, 1fr); gap: 80px; } 
@@ -22,4 +25,4 @@
 
 .stonelist_item__stone_category { margin-bottom: 4px; color: var(--primary2); }
 .stonelist_item__stone_title { margin-bottom: 4px; font-size: 1.4rem; }
-.stonelist_item__stone_describe { word-break: keep-all; }
+.stonelist_item__stone_describe { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
