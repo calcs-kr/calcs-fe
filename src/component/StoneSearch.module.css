@@ -72,6 +72,7 @@
 }
 
 .stonekey_item_side__category__body_name::before { content: ' '; height: 5px; width: 5px; margin-right: 4px; display: inline-block; border: 1px solid #DBDBDB; border-top: none; border-right: none; }
+.category_active { color: #000000; text-decoration : underline; }
 
 .dropdown_active { max-height: 200px; }
 .dropdown_disable { max-height: 16px; }

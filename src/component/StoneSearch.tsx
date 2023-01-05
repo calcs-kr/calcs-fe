@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { useAPIState, useAPIDispatch } from '../context/APIContext'
 
 // React
-import { Link } from 'react-router-dom'
+import { } from 'react-router-dom'
 
 // Style
 import styles from './StoneSearch.module.css';
@@ -25,7 +25,7 @@ function StoneSearch() {
     // 필터 데이터 정의
     interface Filter {
         keyword: string;
-        category: string | null;
+        category: string;
         tag: Array<string|null>;
         stack: Array<string|null>;
     }
@@ -39,14 +39,22 @@ function StoneSearch() {
         service?.result.map((serviceItem) => temp.push(serviceItem) )
         setServiceList(temp)
     }, [service])
-    
+
     // 페이지네이션 페이지
     const [nowPage, setNowPage] = useState(1)
-    const [maxPage, setMaxPage] = useState(0)
+    const [maxPage, setMaxPage] = useState(1)
 
     useEffect(() => {
-        setMaxPage(Math.ceil(serviceList.length / 12))
+        setMaxPage(Math.ceil(serviceList.length / 12) !== 0 ? Math.ceil(serviceList.length / 12) : 1 )
     }, [serviceList])
+
+    useEffect(() => {
+        chnagePage(nowPage)
+    }, [maxPage])
+
+    function chnagePage(page: number) {
+        setNowPage(page > maxPage ? maxPage : page)
+    }
 
     // 드롭다운 기능이 동작할 항목 선택
     type dropdownType = {
@@ -123,7 +131,7 @@ function StoneSearch() {
             </div>
 
             <div className={[ styles.stonekey_item, styles.stonekey_item_head ].join(' ')}>
-                <span className={ styles.stonekey_item__head_count }>8개의 스톤이 존재합니다.</span>
+                <span className={ styles.stonekey_item__head_count }>{ serviceList.length }개의 스톤이 존재합니다.</span>
 
                 <div className={ styles.stonekey_item__head_search }>
                     <input type='text' placeholder='search' value={filter.keyword} onChange={filterKeywordHandler} />
@@ -144,11 +152,11 @@ function StoneSearch() {
                     
                     <div className={ styles.stonekey_item_side__category_body }>
                         <div className={ styles.stonekey_item_side__category__body }>
-                            <span className={ styles.stonekey_item_side__category__body_name } id='all' onClick={(e) => filterCategoryHandler(e)}>All</span>
+                            <span className={[ styles.stonekey_item_side__category__body_name, filter['category'] === '' ? styles.category_active : styles.category_disable ].join(' ')} id='all' onClick={(e) => filterCategoryHandler(e)}>All</span>
                         </div>
                         { category?.result.map((item) => (
                             <div className={ styles.stonekey_item_side__category__body } key={ item['_id'] }>
-                                <span className={ styles.stonekey_item_side__category__body_name } id={ item['_id'] } onClick={(e) => filterCategoryHandler(e)}>{ item['name'] }</span>
+                                <span className={[ styles.stonekey_item_side__category__body_name, item['_id'] === filter['category'] ? styles.category_active : styles.category_disable ].join(' ')} id={ item['_id'] } onClick={(e) => filterCategoryHandler(e)}>{ item['name'] }</span>
                                 <span>1</span>
                             </div>
                         )) }
@@ -272,6 +280,7 @@ function StoneSearch() {
             <div className={[ styles.stonekey_item, styles.stonekey_item_body ].join(' ')}>
                 <div className={ styles.stonekey_item__target }>
                     <span>연관검색어</span>
+                    <span onClick={ () => relatedSearch('') }>전체</span>
                     <span onClick={ () => relatedSearch('discord') }>디스코드</span>
                     <span onClick={ () => relatedSearch('Isedol') }>이세돌</span>
                     <span onClick={ () => relatedSearch('minecraft') }>마인크래프트</span>
@@ -315,25 +324,25 @@ function StoneSearch() {
                     <div className={ styles.stonekey_item__img }>
                         <div className={[ styles.icon_left ].join(' ')}></div>
                     </div>
-                    <span>1</span>
+                    <span onClick={() => chnagePage(1)}>1</span>
                     <span>...</span>
                 </>
                 : null }
                 
-                { nowPage-3 > 0 ? <span>{nowPage-3}</span> : null }
-                { nowPage-2 > 0 ? <span>{nowPage-2}</span> : null }
-                { nowPage-1 > 0 ? <span>{nowPage-1}</span> : null }
+                { nowPage-3 > 0 ? <span onClick={() => chnagePage(nowPage-3)}>{nowPage-3}</span> : null }
+                { nowPage-2 > 0 ? <span onClick={() => chnagePage(nowPage-2)}>{nowPage-2}</span> : null }
+                { nowPage-1 > 0 ? <span onClick={() => chnagePage(nowPage-1)}>{nowPage-1}</span> : null }
                 
                 <span className={ styles.stonekey_item__pagenation_now }>{ nowPage }</span>
 
-                { nowPage+1 <= maxPage ? <span>{nowPage+1}</span> : null }
-                { nowPage+2 <= maxPage ? <span>{nowPage+2}</span> : null }
-                { nowPage+3 <= maxPage ? <span>{nowPage+3}</span> : null }
+                { nowPage+1 <= maxPage ? <span onClick={() => chnagePage(nowPage+1)}>{nowPage+1}</span> : null }
+                { nowPage+2 <= maxPage ? <span onClick={() => chnagePage(nowPage+2)}>{nowPage+2}</span> : null }
+                { nowPage+3 <= maxPage ? <span onClick={() => chnagePage(nowPage+3)}>{nowPage+3}</span> : null }
 
                 { nowPage <= maxPage - 2
                 ? <>
                     <span>...</span>
-                    <span>{ maxPage }</span>
+                    <span onClick={() => chnagePage(maxPage)}>{ maxPage }</span>
                     <div className={ styles.stonekey_item__img }>
                         <div className={[ styles.icon_right ].join(' ')}></div>
                     </div>
