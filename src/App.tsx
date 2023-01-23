@@ -20,6 +20,10 @@ import { useEffect } from 'react'
 import { useAPIState, useAPIDispatch } from './context/APIContext'
 import { useHeaderDispatch, useHeaderState } from './context/HeaderContext';
 import ScrollToTop from './context/ScrollTop';
+import Admin from './route/Admin';
+import Login from './route/Login';
+import { useUserDispatch, useUserState } from './context/UserContext';
+import { useCookies } from 'react-cookie';
 
 
 function App() {
@@ -27,9 +31,30 @@ function App() {
 	//const state    = useAPIState()
 	const dispatch = useAPIDispatch()
 
+  const userState    = useUserState()
+  const userDispatch = useUserDispatch()
+
+  const { loading, token }     = userState
+
+  const [cookies, setCookie] = useCookies(['token'])
+
   // 데이터 조회 함수
   const getBatchData = async () => {
     try {
+      // 유저 정보 추가
+      if( cookies?.token ) {
+        userDispatch({ type: 'LOGIN' })
+        const auth  = await axios.post(`http://${config.CALCS_HOST}:${config.CALCS_BE}/auth`, {}, { headers: {Authorization: `Bearer ${cookies.token}`}})
+
+        if( auth.data.status === 200 ) {
+          userDispatch({ type: 'SUCCESS', token: cookies.token })
+        } else {
+          userDispatch({ type: 'EXPIRY' })
+        }
+      } else {
+        userDispatch({ type: 'EXPIRY' })
+      }
+
       dispatch({ type: 'LOADING' })
       const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
       const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
@@ -63,6 +88,8 @@ function App() {
     <Router>
       <ScrollToTop />
       <Routes>
+        <Route path='/admin' element={<Admin />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/stone' element={<Stone />} />
         <Route path='/' element={<Home />} />
       </Routes>
