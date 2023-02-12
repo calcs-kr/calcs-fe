@@ -17,4 +17,4 @@ footer { height: 200px; width: 1320px; margin: 0 calc((100% - 1320px) / 2); }
 }
 
 .footer_item_terms { align-items: flex-end;  }
-.footer_item_terms span { margin: 8px 0; }
+.footer_item_terms span { margin: 8px 0; cursor: pointer; }
