@@ -1,0 +1,90 @@
+.management_frame {
+    width: 1320px;
+    margin: 80px calc((100% - 1320px) / 2);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, minmax(104px, auto)); 
+    gap: 40px;
+}
+
+.management__item {
+    padding: 0 10px;
+}
+
+.management_item:nth-child(1) { grid-row: 2 / 4; grid-column: 1 / 2; }
+.management_item:nth-child(2) { grid-row: 2 / 5; grid-column: 2 / 5; }
+
+
+.management__item_img { display: grid; gap: 40px; grid-template-columns: repeat(2, 1fr); }
+.management__item_img__text { display: flex; flex-direction: column; }
+.management__item_img img { height: 120px; width: 120px; background-size: contain; }
+
+
+
+.management_item_action { display: none; align-items: center; justify-content: space-between; margin: 10px auto; }
+.management_item_table  { margin: 0 auto; }
+
+.management__item_action__title { display: flex; justify-content: space-between; font-size: 1.4rem; color: #424C60; }
+
+/* 표 */
+.management__item_table__head { display: flex; padding: 10px 20px; color: #424C60; background-color: #F8F8FA; border-radius: 4px; }
+.management__item_table__body { display: flex; padding: 10px 20px; color: #74849E; }
+.management__item_table__body:hover {  }
+
+
+.management__item_table__content:nth-child(1) { width: 60px; }
+.management__item_table__content:nth-child(2) { width: 120px; }
+.management__item_table__content:nth-child(3) { width: 120px; }
+.management__item_table__content:nth-child(4) { width: 100px; }
+.management__item_table__content:nth-child(5) { width: 100px; }
+.management__item_table__content:nth-child(6) { width: 200px; }
+.management__item_table__content:nth-child(7) { width: 60px; }
+
+
+
+/* 모달 */
+.management_item_add {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(121,121,121, 0.4);
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.management_item_add_act { 
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(121,121,121, 0.4);
+    animation-duration: 0.25s;
+    animation-timing-function: ease-out;
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: auto;
+}
+
+.management__item_modal_context { 
+    height: 220px;
+    width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+
