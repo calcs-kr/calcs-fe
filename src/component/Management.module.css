@@ -12,7 +12,9 @@
 }
 
 .management_item:nth-child(1) { grid-row: 2 / 4; grid-column: 1 / 2; }
-.management_item:nth-child(2) { grid-row: 2 / 5; grid-column: 2 / 5; }
+.management_item:nth-child(2) { grid-row: 2 / 4; grid-column: 2 / 5; }
+.management_item:nth-child(3) { grid-row: 4 / 5; grid-column: 1 / 3; }
+.management_item:nth-child(4) { grid-row: 4 / 5; grid-column: 3 / 5; }
 
 
 .management__item_img { display: grid; gap: 40px; grid-template-columns: repeat(2, 1fr); }
@@ -79,12 +81,32 @@
 }
 
 .management__item_modal_context { 
-    height: 220px;
+    height: 250px;
     width: 800px;
     padding: 20px;
     display: flex;
-    flex-direction: column;
     border-radius: 8px;
     background-color: #FFFFFF;
 }
 
+.management__item_add_image { width: 200px; margin: 0 8px 0 0; }
+.management__item_add_image_text { height: 250px; width: 200px; display: flex; align-items: center; justify-content: center; }
+.management__item_add_image input { display: none; }
+.management__item_add_image img   { height: 250px; width: 200px; position: absolute; border: 1px solid black; }
+
+
+.management__item_add_data { width: 100%; display: flex; flex-direction: column; }
+.management__item_add_data__text { margin: 4px 0; display: flex; align-items: center; }
+.management__item_add_data__text_label { width: 80px; margin: 0 4px 0 0; text-align: right; }
+.management__item_add_data__text_input { text-align: center; }
+
+.management__item_add_data__text__stack { display: flex; gap: 4px; justify-content: center; }
+
+.management__item_add_data_insert { height: calc(100% -  16px); }
+.management__item_add_data_action { height: 16px; text-align: right; }
+.management__item_add_data_action span { cursor: pointer; }
+
+
+.management__item_add_data__calendar { margin: 4px 0 0 84px; }
+.management__item_add_data__calendar_active  {  }
+.management__item_add_data__calendar_disable { display: none; }

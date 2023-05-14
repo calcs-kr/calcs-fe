@@ -1,9 +1,14 @@
 import React, { useReducer, useContext, createContext, Dispatch } from 'react';
 
+/*
 type Data = {
     status: number,
     result: [] //Map<string, any[]>
 }
+*/
+
+type Data = []
+
 
 // API 상태 타입 정의
 type State = {

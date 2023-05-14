@@ -15,10 +15,10 @@ function StoneForKeyWord() {
 	// 조회된 데이터 정의
 	const { loading, service, category, stack, error } = state
 
-    const [tagItems, setTagItems] = useState(service?.result)
+    const [tagItems, setTagItems] = useState(service)
 
     useEffect(() => {
-        setTagItems(service?.result)
+        setTagItems(service)
     }, [service])
 
     enum Tag { 'all', 'Stone', 'Mountain', 'Sketch' }
@@ -26,12 +26,12 @@ function StoneForKeyWord() {
     function selectTag(str: string) { setTag(str) }
     useEffect(() => {
         if( tag === 'all' ) {             // 전체
-            setTagItems(service?.result)
+            setTagItems(service)
             return
         }
 
         const temp: [] = []
-        service?.result.map((item) => {   // 특정 태그
+        service?.map((item) => {   // 특정 태그
             if(item['tag']['name'] !== tag) return
             temp.push(item)
         })
@@ -58,7 +58,7 @@ function StoneForKeyWord() {
             <div className={[ styles.stonekey_item, styles.stonekey_item_stone ].join(' ')}>
                 { tagItems?.map((item: any, num: number) => {
                     if (num >= 4) return
-                    if( !service?.result.length ) { return ( <span>없습니다.</span> ) }
+                    if( !service?.length ) { return ( <span>없습니다.</span> ) }
                     return ( <div className={ styles.stonekey_item__stone } key={ item._id }>
                         <div>
                             <img src='/img/stone.png' alt='' />

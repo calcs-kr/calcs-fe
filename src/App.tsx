@@ -63,7 +63,7 @@ function App() {
 
       setTimeout( async function() {
         try {
-          dispatch({ type: 'SUCCESS', service: service.data, category: category.data, stack: stack.data, tag: tag.data })
+          dispatch({ type: 'SUCCESS', service: service.data.result, category: category.data.result, stack: stack.data.result, tag: tag.data.result })
         } catch (err) {
           console.log(err)
         }

@@ -13,6 +13,7 @@ import { } from 'react-router-dom'
 
 // Style
 import styles from './StoneSearch.module.css';
+import { convertArrayToQueryString, convertStringToQueryString } from '../function/convertQueryString'
 
 function StoneSearch() {
     ////// API 일괄 데이터 //////
@@ -36,7 +37,7 @@ function StoneSearch() {
     const [serviceList, setServiceList] = useState([])
     useEffect(() => {
         let temp: [] = []
-        service?.result.map((serviceItem) => temp.push(serviceItem) )
+        service?.map((serviceItem) => temp.push(serviceItem) )
         setServiceList(temp)
     }, [service])
 
@@ -120,7 +121,8 @@ function StoneSearch() {
 
     // 데이터 조회 함수
     const getBatchData = async () => {
-        const service = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?keyword=${filter['keyword']}&category=${filter['category']}&tag=${filter['tag']}&stack=${filter['stack']}`)
+        const service = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?${convertStringToQueryString('keyword', filter['keyword'])}${convertStringToQueryString('category', filter['category'])}${convertArrayToQueryString('stack', filter['stack'])}${convertArrayToQueryString('tag', filter['tag'])}`)
+        
         setServiceList(service.data.result)
     }
 
@@ -154,7 +156,7 @@ function StoneSearch() {
                         <div className={ styles.stonekey_item_side__category__body }>
                             <span className={[ styles.stonekey_item_side__category__body_name, filter['category'] === '' ? styles.category_active : styles.category_disable ].join(' ')} id='all' onClick={(e) => filterCategoryHandler(e)}>All</span>
                         </div>
-                        { category?.result.map((item) => (
+                        { category?.map((item :any) => (
                             <div className={ styles.stonekey_item_side__category__body } key={ item['_id'] }>
                                 <span className={[ styles.stonekey_item_side__category__body_name, item['_id'] === filter['category'] ? styles.category_active : styles.category_disable ].join(' ')} id={ item['_id'] } onClick={(e) => filterCategoryHandler(e)}>{ item['name'] }</span>
                                 <span>1</span>
@@ -174,7 +176,7 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { tag?.result.map((item) => (
+                        { tag?.map((item: any) => (
                             <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
                                 <input id={ item['_id'] } type='checkbox' onChange={(e) => filterTagHandler(e)} />
                                 <label htmlFor={ item['_id'] }></label>
@@ -195,7 +197,7 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { stack?.result.map((item) => { 
+                        { stack?.map((item: any) => { 
                             if( item['type'] !== 'design' ) return null
                             return (
                                 <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
@@ -218,7 +220,7 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { stack?.result.map((item) => { 
+                        { stack?.map((item: any) => { 
                             if( item['type'] !== 'frontend' ) return null
                             return (
                                 <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
@@ -241,7 +243,7 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { stack?.result.map((item) => { 
+                        { stack?.map((item: any) => { 
                             if( item['type'] !== 'backend' ) return null
                             return (
                                 <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
@@ -264,7 +266,7 @@ function StoneSearch() {
                     </div>
 
                     <div className={ styles.stonekey_item_side__filter_body }>
-                        { stack?.result.map((item) => { 
+                        { stack?.map((item: any) => { 
                             if( item['type'] !== 'devops' ) return null
                             return (
                                 <div className={ styles.stonekey_item_side__filter__body } key={ item['_id'] }>
