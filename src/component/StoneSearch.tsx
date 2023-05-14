@@ -121,7 +121,7 @@ function StoneSearch() {
 
     // 데이터 조회 함수
     const getBatchData = async () => {
-        const service = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service?${convertStringToQueryString('keyword', filter['keyword'])}${convertStringToQueryString('category', filter['category'])}${convertArrayToQueryString('stack', filter['stack'])}${convertArrayToQueryString('tag', filter['tag'])}`)
+        const service = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service?${convertStringToQueryString('keyword', filter['keyword'])}${convertStringToQueryString('category', filter['category'])}${convertArrayToQueryString('stack', filter['stack'])}${convertArrayToQueryString('tag', filter['tag'])}`)
         
         setServiceList(service.data.result)
     }

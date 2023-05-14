@@ -1,21 +1,20 @@
 // React
-import { useState } from 'react'
+//import { useState } from 'react'
 
 // Context
-import { useAPIState, useAPIDispatch } from '../context/APIContext'
-import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContext'
+//import { useAPIState, useAPIDispatch } from '../context/APIContext'
+//import { useAPISearchState, useAPISearchDispatch } from '../context/SearchContext'
 
 // Style
 import styles from './StoneList.module.css';
-import { Link } from 'react-router-dom'
 
 function StoneList() {
     ////// API 일괄 데이터 //////
-	const state = useAPIState();
-	const dispatch = useAPIDispatch();
+	//const state = useAPIState();
+	//const dispatch = useAPIDispatch();
 
 	// 조회된 데이터 정의
-	const { loading, service, category, stack, error } = state
+	//const { loading, service, category, stack, error } = state
 
     const a = [1,2,3,4]
     return (

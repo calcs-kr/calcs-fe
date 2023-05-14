@@ -45,7 +45,7 @@ function Manaegment() {
     const deleteService = async (e: any) => {
         const response: any = await axios({
             method: 'delete',
-            url: `http://${config.CALCS_HOST}:${config.CALCS_BE}/service`, 
+            url: `https://${config.CALCS_HOST}:${config.CALCS_BE}/service`, 
             data: { id: selectService }, 
             headers: {Authorization: `Bearer ${cookies.token}`}
         })
@@ -144,7 +144,7 @@ function Manaegment() {
     }
 
     async function serviceAdd() {
-        const response: any = await axios.post(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`, 
+        const response: any = await axios.post(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service`, 
         { name: formValues['name'],
         domain: formValues['domain'],
         describe: formValues['describe'],
@@ -189,7 +189,7 @@ function Manaegment() {
 
     async function fileGet() {
         setFileLoading(true)
-        let response: any = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/file`, { headers: {Authorization: `Bearer ${cookies.token}`}})
+        let response: any = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/file`, { headers: {Authorization: `Bearer ${cookies.token}`}})
         .catch(function (error) {
             if (error.response) {
                 console.log(error.response.data)
@@ -210,7 +210,7 @@ function Manaegment() {
 
 
         
-        response = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/tag`, { headers: {Authorization: `Bearer ${cookies.token}`}})
+        response = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/tag`, { headers: {Authorization: `Bearer ${cookies.token}`}})
         .catch(function (error) {
             if (error.response) {
                 console.log(error.response.data)
@@ -251,7 +251,7 @@ function Manaegment() {
 
                 <div className={[ styles.management__item, styles.management__item_img ].join(' ')}>
                     { file?.map((item: any) => {
-                        return ( <img src={ `http://calcs.kr:8000/upload/${item.filename}` } alt='' key={ item._id } /> )
+                        return ( <img src={ `https://calcs.kr:8000/upload/${item.filename}` } alt='' key={ item._id } /> )
                     }) }
                 </div>
 

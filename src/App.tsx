@@ -2,7 +2,7 @@
 import './App.css'
 
 // Context
-import { APIProvider } from './context/APIContext'
+//import { APIProvider } from './context/APIContext'
 
 // Component
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -17,7 +17,8 @@ import config from './config'
 import { useEffect } from 'react'
 
 // Context
-import { useAPIState, useAPIDispatch } from './context/APIContext'
+//import { useAPIState, useAPIDispatch } from './context/APIContext'
+import { useAPIDispatch } from './context/APIContext'
 import { useHeaderDispatch, useHeaderState } from './context/HeaderContext';
 import ScrollToTop from './context/ScrollTop';
 import Admin from './route/Admin';
@@ -31,10 +32,10 @@ function App() {
 	//const state    = useAPIState()
 	const dispatch = useAPIDispatch()
 
-  const userState    = useUserState()
+  //const userState    = useUserState()
   const userDispatch = useUserDispatch()
 
-  const { loading, token }     = userState
+  //const { loading, token }   = userState
 
   const [cookies, setCookie] = useCookies(['token'])
 
@@ -44,7 +45,7 @@ function App() {
       // 유저 정보 추가
       if( cookies?.token ) {
         userDispatch({ type: 'LOGIN' })
-        const auth  = await axios.post(`http://${config.CALCS_HOST}:${config.CALCS_BE}/auth`, {}, { headers: {Authorization: `Bearer ${cookies.token}`}})
+        const auth  = await axios.post(`https://${config.CALCS_HOST}:${config.CALCS_BE}/auth`, {}, { headers: {Authorization: `Bearer ${cookies.token}`}})
 
         if( auth.data.status === 200 ) {
           userDispatch({ type: 'SUCCESS', token: cookies.token })
@@ -56,10 +57,10 @@ function App() {
       }
 
       dispatch({ type: 'LOADING' })
-      const service  = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
-      const category = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
-      const stack    = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
-      const tag      = await axios.get(`http://${config.CALCS_HOST}:${config.CALCS_BE}/service/tag`)
+      const service  = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
+      const category = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
+      const stack    = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
+      const tag      = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/tag`)
 
       setTimeout( async function() {
         try {
@@ -79,7 +80,7 @@ function App() {
 
 
   const heightState    = useHeaderState()
-	const heightDispatch = useHeaderDispatch()
+  const heightDispatch = useHeaderDispatch()
   useEffect(() => window.addEventListener('scroll', updateScroll) )
   
   const updateScroll = () => heightDispatch({ type: 'UPDATE', scrollPosition: window.scrollY || document.documentElement.scrollTop })

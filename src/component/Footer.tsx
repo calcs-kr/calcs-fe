@@ -39,7 +39,7 @@ function Footer() {
     async function logout() {
         userDispatch({ type: 'LOGOUT' })
 
-        const auth  = await axios.post(`http://${config.CALCS_HOST}:${config.CALCS_BE}/auth`, {}, { headers: {Authorization: `Bearer ${cookies.token}`}})
+        const auth  = await axios.post(`https://${config.CALCS_HOST}:${config.CALCS_BE}/auth`, {}, { headers: {Authorization: `Bearer ${cookies.token}`}})
 
         removeCookie('token')
         userDispatch({ type: 'EXPIRY' })

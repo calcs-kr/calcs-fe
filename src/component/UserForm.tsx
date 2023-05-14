@@ -55,7 +55,7 @@ function UserForm() {
         try {
             userDispatch({ type: 'LOGIN' })
 
-            const login  = await axios.post(`http://${config.CALCS_HOST}:${config.CALCS_BE}/auth/login`, {
+            const login  = await axios.post(`https://${config.CALCS_HOST}:${config.CALCS_BE}/auth/login`, {
                 userName: userID,
                 userPassword: userPassword,
             })
