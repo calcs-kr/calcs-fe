@@ -33,7 +33,6 @@
 .management__item_table__body { display: flex; padding: 10px 20px; color: #74849E; }
 .management__item_table__body:hover {  }
 
-
 .management__item_table__content:nth-child(1) { width: 60px; }
 .management__item_table__content:nth-child(2) { width: 120px; }
 .management__item_table__content:nth-child(3) { width: 120px; }

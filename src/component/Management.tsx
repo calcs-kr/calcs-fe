@@ -1,3 +1,6 @@
+// 선택한 항목 (카테고리, 서비스, 스택) 저장하는 변수
+// 선택한 항목 수정 or 삭제 기능 추가
+
 // React
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -25,6 +28,30 @@ function Manaegment() {
 
 	// 조회된 데이터 정의
 	const { loading, service, category, stack, error } = state
+	
+	
+	// 스톤 리스트
+	const [serviceList, setServiceList]   = useState([])
+	const [categoryList, setCategoryList] = useState([])
+	const [stackList, setStackList]       = useState([])
+	
+	const [selectCategoryList, setSelectCategoryList] = useState([])
+	
+	
+	useEffect(() => {
+		let temp: [] = []
+		service?.map((serviceItem) => temp.push(serviceItem))
+		setServiceList(temp)
+		
+		temp = []
+		category?.map((serviceItem) => temp.push(serviceItem))
+		setCategoryList(temp)
+		
+		temp = []
+		stack?.map((serviceItem) => temp.push(serviceItem))
+		setStackList(temp)
+	}, [state])
+	
 
     // 캘린더 오픈 여부
     const [calendarIsOpen, setCalendarIsOpen] = useState(false)
@@ -90,6 +117,10 @@ function Manaegment() {
         startAt: '',
         endAt: ''
     })
+	
+	// 선택된 카테고리 항목
+	const categoryCheckboxSelect = (e: any) => {
+	}
 
     const addInputChange = (e: any) => {
         const { name, value } = e.target
@@ -185,7 +216,77 @@ function Manaegment() {
             startAt: '',
             endAt: ''
         })
+		
+		getBatchData()
     }
+	
+	async function categoryAdd() {
+		const response: any = await axios.post(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`, 
+        { name: formValues['name'] }, 
+        { headers: {Authorization: `Bearer ${cookies.token}`}})
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data)
+                console.log(error.response.status)
+                //console.log(error.response.headers)
+            }
+            else if (error.request) {
+                console.log(error.request)
+            }
+            else {
+                console.log('Error', error.message)
+            }
+            console.log(error.config)
+        })
+        console.log(response.data)
+
+        // 입력 값 초기화
+        setShowModal(false)
+        setFormValues({
+            name: '',
+        })
+		
+		getBatchData()
+	}
+	
+	async function categoryDel() {
+		const response: any = await axios.delete(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`, 
+        { name: formValues['name'] }, 
+        { headers: {Authorization: `Bearer ${cookies.token}`}})
+        .catch(function (error) {
+            if (error.response) {
+                console.log(error.response.data)
+                console.log(error.response.status)
+                //console.log(error.response.headers)
+            }
+            else if (error.request) {
+                console.log(error.request)
+            }
+            else {
+                console.log('Error', error.message)
+            }
+            console.log(error.config)
+        })
+        console.log(response.data)
+
+        // 입력 값 초기화
+        setShowModal(false)
+        setFormValues({
+            name: '',
+        })
+		
+		getBatchData()
+	}
+	
+	// 데이터 조회 함수
+	const getBatchData = async () => {
+		const service  = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service`)
+		const category = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/category`)
+		const stack    = await axios.get(`https://${config.CALCS_HOST}:${config.CALCS_BE}/service/stack`)
+        setServiceList(service.data.result)
+        setCategoryList(category.data.result)
+        setStackList(stack.data.result)
+	}
 
     async function fileGet() {
         setFileLoading(true)
@@ -279,7 +380,7 @@ function Manaegment() {
                     <span className={ styles.management__item_table__content }>생성 일자</span>
                 </div>
 
-                { service?.map((item: any) => {
+                { serviceList?.map((item: any) => {
                     return (
                         <div className={[ styles.management__item, styles.management__item_table__body ].join(' ')} key={item._id}>
                             <input className={ styles.management__item_table__content } id={item._id} type='checkbox' onChange={selectHandler} />
@@ -300,7 +401,7 @@ function Manaegment() {
                     <span className={ styles.management__item_action__title }>카테고리 관리</span>
 
                     <div className={ styles.management__item_action__button }>
-                        <button>추가</button>
+                        <button onClick={() => setShowModal(!showModal)}>추가</button>
                         <button>수정</button>
                         <button>삭제</button>
                     </div>
@@ -311,7 +412,7 @@ function Manaegment() {
                     <span className={ styles.management__item_table__content }>카테고리 명</span>
                 </div>
 
-                { category?.map((item: any) => {
+                { categoryList?.map((item: any) => {
                     return (
                         <div className={[ styles.management__item, styles.management__item_table__body ].join(' ')} key={item._id}>
                             <input className={ styles.management__item_table__content } id={item._id} type='checkbox' />
@@ -338,7 +439,7 @@ function Manaegment() {
                     <span className={ styles.management__item_table__content }>카테고리 명</span>
                 </div>
 
-                { stack?.map((item: any) => {
+                { stackList?.map((item: any) => {
                     return (
                         <div className={[ styles.management__item, styles.management__item_table__body ].join(' ')} key={`${item._id}_manage`}>
                             <input className={ styles.management__item_table__content } id={`${item._id}_manage`} type='checkbox' />
@@ -426,7 +527,26 @@ function Manaegment() {
                         </div>
 
                         <div className={ styles.management__item_add_data_action }>
-                            <span onClick={ serviceAdd }>완료</span>
+                            <span onClick={ serviceAdd }>추가</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			
+			
+			<div className={[ styles.management_item, showModal ? styles.management_item_add_act : styles.management_item_add ].join(' ')} onClick={ () => { setShowModal(!showModal) } }>
+                <div className={ styles.management__item_modal_context } onClick={(e) => e.stopPropagation()}>
+                    <div className={ styles.management__item_add_data }>
+                        <div className={ styles.management__item_add_data_insert }>
+                            <div className={ styles.management__item_add_data__text }>
+                                <label className={ styles.management__item_add_data__text_label }>카테고리 이름</label>
+                                <input name='name' value={formValues.name} onChange={addInputChange}></input>
+                            </div>
+						</div>
+
+                        <div className={ styles.management__item_add_data_action }>
+                            <span onClick={ categoryAdd }>추가</span>
                         </div>
                     </div>
                 </div>
